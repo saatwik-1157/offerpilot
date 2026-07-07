@@ -71,10 +71,30 @@ Try the loop: sign up on `signup.html` → your new account appears in the ops c
 
 1. **Auth + DB** — replace `js/store.js` internals with Supabase (URL/key already stubbed in `config.js`).
 2. **Payments** — wire the signup CTA to Stripe Checkout.
-3. **Real matching/resumes** — replace `js/ai.js` with a job-board API + an LLM resume tailor.
+3. **Real matching/resumes** — the LLM resume tailor is already built (see below).
 4. **Forms** — set `formsKey` in `config.js` for onboarding email capture.
 
 ---
+
+## RezForge™ live mode (real Claude resumes)
+
+The dashboard's resume preview has a **"✨ Regenerate with RezForge AI"** button. In demo mode it re-runs the deterministic mock; point it at the included server and it generates a genuinely tailored resume with Claude.
+
+The Anthropic API key stays **server-side** — never in the browser (a static site can't safely hold one). `server/rezforge-server.mjs` is a tiny dependency-light Node proxy that calls Claude (`claude-opus-4-8`) with structured outputs and returns `{ summary, highlights, keywords }`.
+
+```bash
+cd server
+npm install
+ANTHROPIC_API_KEY=sk-ant-... node rezforge-server.mjs   # → http://localhost:8787/api/rezforge
+```
+
+Then set the endpoint in [js/config.js](js/config.js) and reload:
+
+```js
+rezforgeEndpoint: "http://localhost:8787/api/rezforge"
+```
+
+Leave `rezforgeEndpoint` blank to stay in demo mode. The client ([js/ai.js](js/ai.js) → `generateResumeLive`) always falls back to the mock on any network/error, so the dashboard never breaks. In production, deploy the server as a serverless function and lock `ALLOW_ORIGIN` to your domain.
 
 ## License
 

@@ -236,19 +236,52 @@
       '<div class="txt">' + txt + '</div></div>';
   }
 
-  function showResume(app) {
-    var r = app.resume;
-    var modal = document.getElementById("resume-modal");
-    document.getElementById("resume-content").innerHTML =
-      '<div class="resume-doc">' +
-        '<h3>' + (r.summary.split(" — ")[0]) + '</h3>' +
-        '<div class="role">' + r.role + ' · tailored for ' + app.company + ' ' + matchChip(app.matchScore) + '</div>' +
+  function resumeHTML(app, r) {
+    var liveBadge = r.live
+      ? '<span class="match-chip match-hi">✨ AI-generated</span>'
+      : '';
+    return '<div class="resume-doc">' +
+        '<h3>' + (app.company + ' — ' + r.role) + '</h3>' +
+        '<div class="role">tailored for ' + app.company + ' ' + matchChip(app.matchScore) + ' ' + liveBadge + '</div>' +
         '<p class="muted" style="font-size:.92rem">' + r.summary + '</p>' +
-        '<div class="kw">' + r.keywords.map(function (k) { return '<span>' + k + '</span>'; }).join("") + '</div>' +
+        '<div class="kw">' + (r.keywords || []).map(function (k) { return '<span>' + k + '</span>'; }).join("") + '</div>' +
         '<div style="font-weight:700;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px">Highlights</div>' +
-        '<ul>' + r.highlights.map(function (h) { return '<li>' + h + '</li>'; }).join("") + '</ul>' +
+        '<ul>' + (r.highlights || []).map(function (h) { return '<li>' + h + '</li>'; }).join("") + '</ul>' +
+        '<div style="margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
+          '<button class="btn btn-primary btn-sm" id="resume-enhance">✨ Regenerate with RezForge AI</button>' +
+          '<span class="muted" style="font-size:.8rem" id="resume-enhance-note"></span>' +
+        '</div>' +
       '</div>';
-    modal.classList.add("show");
+  }
+
+  function renderResume(app, r) {
+    var body = document.getElementById("resume-content");
+    body.innerHTML = resumeHTML(app, r);
+    body.querySelector("#resume-enhance").addEventListener("click", function () {
+      var btn = this;
+      var note = document.getElementById("resume-enhance-note");
+      btn.disabled = true; btn.textContent = "Generating…";
+      note.textContent = (window.OFFERPILOT_CONFIG || {}).rezforgeEndpoint
+        ? "Calling RezForge (Claude)…" : "Demo mode — no server configured, showing a fresh sample.";
+      window.RezForge.generateResumeLive(
+        {
+          name: _client && _client.name,
+          skills: _client && _client.skills,
+          targetRoles: _client && _client.targetRoles,
+          visa: _client && _client.visa
+        },
+        { company: app.company, role: app.resume.role }
+      ).then(function (out) {
+        out.role = out.role || app.resume.role;
+        renderResume(app, out);
+        window.toast(out.live ? "RezForge AI resume ready" : "Regenerated (demo mode)");
+      });
+    });
+  }
+
+  function showResume(app) {
+    renderResume(app, app.resume);
+    document.getElementById("resume-modal").classList.add("show");
   }
 
   function boot() {

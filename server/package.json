@@ -1,0 +1,17 @@
+{
+  "name": "offerpilot-rezforge-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "RezForge live resume-tailoring proxy for OfferPilot — calls Claude so the API key stays server-side.",
+  "main": "rezforge-server.mjs",
+  "scripts": {
+    "start": "node rezforge-server.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

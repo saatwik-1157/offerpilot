@@ -48,5 +48,10 @@ window.OFFERPILOT_CONFIG = {
   },
 
   // 3) FORMS — onboarding email capture (e.g. web3forms / Formspree access key).
-  formsKey: ""
+  formsKey: "",
+
+  // 4) REZFORGE LIVE — real Claude-powered resume tailoring.
+  //    Deploy server/rezforge-server.mjs (holds the ANTHROPIC_API_KEY) and put
+  //    its URL here. Blank = demo mode (deterministic mock, no network calls).
+  rezforgeEndpoint: ""   // e.g. "http://localhost:8787/api/rezforge"
 };
