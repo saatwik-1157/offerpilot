@@ -61,10 +61,24 @@
     <div class="container">
       <div class="app-head">
         <div>
-          <h1 id="welcome">Welcome back</h1>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <h1 id="welcome">Welcome back</h1>
+            <span class="plan-badge" id="plan-badge"></span>
+          </div>
           <p id="sub">—</p>
         </div>
-        <a href="index.html#pricing" class="btn btn-outline btn-sm">Manage plan</a>
+        <div style="display:flex;gap:10px">
+          <a href="profile.html" class="btn btn-outline btn-sm">Edit profile</a>
+          <a href="index.html#pricing" class="btn btn-outline btn-sm">Manage plan</a>
+        </div>
+      </div>
+
+      <!-- Empty state (brand-new client, no applications yet) -->
+      <div class="empty-state hidden" id="empty-state">
+        <div class="es-ico">🚀</div>
+        <h2>You're all set — your pipeline is warming up</h2>
+        <p>Your specialist is reviewing your profile. The first 25–35 tailored applications go out within 3–7 business days of your onboarding call. This is where you'll watch them roll in.</p>
+        <a href="profile.html" class="btn btn-primary">Review your targeting →</a>
       </div>
 
       <div class="kpis" id="kpis"></div>

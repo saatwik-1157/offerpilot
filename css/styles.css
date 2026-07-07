@@ -381,6 +381,15 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg); top: 0; }
 .row-actions { display: flex; gap: 8px; align-items: center; }
 select.mini { padding: 6px 10px; font-size: .84rem; border: 1px solid var(--border-strong); border-radius: 8px; background: #fff; }
 
+/* ---------- Plan badge ---------- */
+.plan-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 800; letter-spacing: .02em; color: #fff; background: var(--grad); padding: 5px 13px; border-radius: var(--r-pill); box-shadow: 0 4px 12px rgba(79,70,229,.28); }
+
+/* ---------- Empty state ---------- */
+.empty-state { background: #fff; border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 48px 32px; text-align: center; margin-bottom: 24px; }
+.empty-state .es-ico { font-size: 3rem; margin-bottom: 12px; }
+.empty-state h2 { font-size: 1.4rem; margin-bottom: 10px; }
+.empty-state p { color: var(--muted); max-width: 520px; margin: 0 auto 22px; }
+
 /* ---------- Notifications bell ---------- */
 .bell-wrap { position: relative; }
 .bell { width: 42px; height: 42px; border-radius: 12px; background: var(--surface); color: var(--ink); display: grid; place-items: center; position: relative; transition: background .2s; }

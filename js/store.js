@@ -282,6 +282,17 @@
     save(db);
   }
 
+  function updateClient(clientId, patch) {
+    var db = load();
+    var fields = ["name", "university", "location", "visa", "optExpiry", "targetRoles", "skills", "plan"];
+    db.clients.forEach(function (c) {
+      if (c.id !== clientId) return;
+      fields.forEach(function (k) { if (patch[k] !== undefined) c[k] = patch[k]; });
+    });
+    save(db);
+    return getClient(clientId);
+  }
+
   function hashStr(str) {
     var h = 0; str = str || "";
     for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
@@ -306,6 +317,7 @@
     markOnboarded: markOnboarded,
     runCycleForClient: runCycleForClient,
     updateStatus: updateStatus,
+    updateClient: updateClient,
     getNotifications: getNotifications,
     unreadCount: unreadCount,
     markAllRead: markAllRead,
