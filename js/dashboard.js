@@ -28,15 +28,20 @@
     return '<span class="match-chip ' + cls + '">' + n + '%</span>';
   }
   function badge(co) { return co.replace(/[^A-Za-z]/g, "").slice(0, 2); }
-  function dayLabel(off) {
-    if (off >= 6) return "Today";
-    if (off === 5) return "Yesterday";
-    return (6 - off + 1) + " days ago";
+  // Relative to the most recent day in the current dataset, so labels stay
+  // correct after the ops console runs additional daily cycles.
+  var _maxDay = 1;
+  function dayLabel(day) {
+    var diff = _maxDay - day;
+    if (diff <= 0) return "Today";
+    if (diff === 1) return "Yesterday";
+    return diff + " days ago";
   }
 
   function render(client) {
     var m = S.metricsFor(client.id);
     var apps = S.getApplications(client.id).slice().sort(function (a, b) { return b.day - a.day || b.matchScore - a.matchScore; });
+    _maxDay = apps.reduce(function (mx, a) { return Math.max(mx, a.day); }, 1);
 
     document.getElementById("welcome").textContent = "Welcome back, " + client.name.split(" ")[0];
     document.getElementById("sub").textContent =

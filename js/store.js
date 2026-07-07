@@ -125,6 +125,7 @@
   function reset() {
     localStorage.removeItem(KEY);
     localStorage.removeItem(SESSION);
+    localStorage.removeItem(READS);
     appCounter = 0;
     return seed();
   }
