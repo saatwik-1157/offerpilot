@@ -493,6 +493,7 @@ select.mini { padding: 6px 10px; font-size: .84rem; border: 1px solid var(--bord
 /* ---------- Responsive ---------- */
 @media (max-width: 980px) {
   .chart-grid, .tiers, .tgrid, .res-grid { grid-template-columns: 1fr; }
+  .referral-panel, .refer-band { grid-template-columns: 1fr; }
   .kanban { grid-template-columns: 1fr 1fr; }
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .cards, .steps, .proof, .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -501,7 +502,9 @@ select.mini { padding: 6px 10px; font-size: .84rem; border: 1px solid var(--bord
 @media (max-width: 680px) {
   .section { padding: 64px 0; }
   .cards, .steps, .stats, .proof, .footer-grid, .kpis { grid-template-columns: 1fr; }
+  .kanban { grid-template-columns: 1fr; }
   .footer-grid { gap: 28px; }
   .price-card { padding: 28px; }
   .app-head h1 { font-size: 1.5rem; }
+  .app-top .brand span:not(.app-tag) { display: none; }
 }
