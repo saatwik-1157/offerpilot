@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /dashboard.html
 Disallow: /admin.html
+Disallow: /profile.html
 
 Sitemap: https://offerpilot.example/sitemap.xml
