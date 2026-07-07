@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Get started — OfferPilot</title>
+<meta name="description" content="Start your OfferPilot subscription — tell us your target roles and we'll begin applying within days." />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<section class="section">
+  <div class="container" style="max-width:680px">
+    <div class="section-head" style="margin-bottom:32px">
+      <span class="eyebrow is-green">Step 1 of 3 · Takes ~2 minutes</span>
+      <h1 class="h-xl">Let's build your pipeline</h1>
+      <p class="lead">Tell us who you are and what you're targeting. This seeds your dashboard and your specialist's kickoff call.</p>
+    </div>
+
+    <div class="panel" style="padding:8px 4px">
+      <form id="signup-form" class="panel-body" style="padding:26px" novalidate>
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" required placeholder="Aarav Mehta" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@student.edu" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="field">
+            <label for="university">University</label>
+            <input id="university" name="university" placeholder="Arizona State University" />
+          </div>
+          <div class="field">
+            <label for="location">Location</label>
+            <input id="location" name="location" placeholder="Tempe, AZ" />
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="field">
+            <label for="visa">Visa status</label>
+            <select id="visa" name="visa">
+              <option>F-1 OPT</option>
+              <option>F-1 STEM OPT</option>
+              <option>F-1 (pre-OPT)</option>
+              <option>H-1B</option>
+              <option>Green Card / GC-EAD</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="optExpiry">OPT / work-auth expiry</label>
+            <input id="optExpiry" name="optExpiry" type="date" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="roles">Target roles</label>
+          <select id="roles" name="roles" multiple size="6" style="height:auto">
+            <option selected>Software Engineer</option>
+            <option>Data Analyst</option>
+            <option>Data Scientist</option>
+            <option>Product Manager</option>
+            <option>DevOps Engineer</option>
+            <option>Business Analyst</option>
+          </select>
+          <p class="hint">Hold Ctrl / Cmd to pick more than one.</p>
+        </div>
+        <div class="field">
+          <label for="skills">Top skills (comma-separated)</label>
+          <input id="skills" name="skills" placeholder="Python, SQL, React, AWS, Docker" />
+          <p class="hint">RezForge™ uses these to tailor each resume and score matches.</p>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px">
+          <div>
+            <div style="font-weight:800;font-size:1.3rem;color:var(--ink)">$<span data-price>249</span><span class="muted" style="font-weight:600;font-size:1rem">/mo</span></div>
+            <div class="hint" style="margin:0">Cancel anytime · refund for unused days</div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Create my account →</button>
+        </div>
+      </form>
+    </div>
+    <p class="hint center" style="margin-top:18px">This is a live demo — your account is created in your browser only. <a href="index.html" style="color:var(--indigo);font-weight:600">Back to home</a></p>
+  </div>
+</section>
+
+<script src="js/config.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/store.js"></script>
+<script src="js/integrations.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Referral link support (?ref=CODE) + optional ?plan= from pricing tiers
+var _params = new URLSearchParams(location.search);
+var _ref = _params.get("ref");
+if (_ref) {
+  var banner = document.createElement("div");
+  banner.className = "gate-hint";
+  banner.style.cssText = "background:var(--emerald-soft);color:var(--emerald-dark);margin-bottom:22px;font-weight:600";
+  banner.innerHTML = "🎁 You were referred with code <strong>" + _ref.replace(/[<>]/g, "") + "</strong> — your first month is <strong>50% off</strong>.";
+  var head = document.querySelector(".section-head");
+  head.parentNode.insertBefore(banner, head.nextSibling);
+}
+
+document.getElementById("signup-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var f = e.target;
+  if (!f.name.value.trim() || !f.email.value.trim()) { window.toast("Name and email are required"); return; }
+  var roles = Array.prototype.slice.call(f.roles.selectedOptions).map(function (o) { return o.value; });
+  var skills = f.skills.value.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+  var client = window.Store.addClient({
+    name: f.name.value.trim(),
+    email: f.email.value.trim(),
+    university: f.university.value.trim(),
+    location: f.location.value.trim(),
+    visa: f.visa.value,
+    optExpiry: f.optExpiry.value,
+    targetRoles: roles.length ? roles : ["Software Engineer"],
+    skills: skills.length ? skills : ["Python", "SQL"],
+    plan: _params.get("plan") || "OfferPilot Monthly",
+    ref: _ref || null
+  });
+  window.Store.setSession({ role: "client", clientId: client.id });
+
+  // If Stripe is configured (live mode), hand off to checkout. Otherwise
+  // (demo mode) continue straight to the dashboard.
+  var handedOff = window.Integrations && window.Integrations.checkout({
+    plan: _params.get("plan") || "Pro",
+    email: client.email,
+    ref: client.referralCode
+  });
+  if (handedOff) return;
+
+  window.toast("Account created — welcome aboard!");
+  setTimeout(function () { location.href = "dashboard.html"; }, 700);
+});
+</script>
+</body>
+</html>

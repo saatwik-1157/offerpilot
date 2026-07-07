@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — OfferPilot</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-chrome="off">
+
+<!-- ===== Login gate ===== -->
+<div id="gate" class="gate hidden">
+  <div class="gate-card">
+    <h1>Client sign in</h1>
+    <p>Access your live application pipeline.</p>
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" placeholder="you@student.edu" required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in</button>
+    </form>
+    <div class="gate-hint">
+      Demo mode — use <code>aarav@student.example</code> or
+      <button id="use-demo" style="color:var(--indigo);font-weight:700;text-decoration:underline">load the demo account</button>.
+      New here? <a href="signup.html" style="color:var(--indigo);font-weight:700">Sign up</a>.
+    </div>
+  </div>
+</div>
+
+<!-- ===== App ===== -->
+<div id="app" class="app-shell hidden">
+  <div class="app-top">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="11" fill="url(#g)"/><path d="M12 26 L20 12 L28 26 M15.5 20.5 H24.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs></svg>
+        <span>Offer<em style="font-style:normal;color:var(--indigo)">Pilot</em></span>
+        <span class="app-tag">Client</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="bell-wrap">
+          <button id="bell" class="bell" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="bell-badge hidden" id="bell-badge">0</span>
+          </button>
+          <div class="notif-panel" id="notif-panel">
+            <div class="notif-head"><strong>Notifications</strong><button id="notif-read" class="notif-readbtn">Mark all read</button></div>
+            <div class="notif-list" id="notif-list"></div>
+          </div>
+        </div>
+        <button id="logout" class="btn btn-ghost btn-sm">Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="app-main">
+    <div class="container">
+      <div class="app-head">
+        <div>
+          <h1 id="welcome">Welcome back</h1>
+          <p id="sub">—</p>
+        </div>
+        <a href="index.html#pricing" class="btn btn-outline btn-sm">Manage plan</a>
+      </div>
+
+      <div class="kpis" id="kpis"></div>
+
+      <!-- Onboarding -->
+      <div class="panel hidden" id="onboard-panel" style="margin-bottom:24px">
+        <div class="panel-head"><h2>Getting you live</h2><span class="muted" style="font-size:.88rem">Applications begin within 3–7 business days of onboarding</span></div>
+        <div class="panel-body" style="padding:20px 22px"><div class="checklist" id="checklist"></div></div>
+      </div>
+
+      <!-- Analytics -->
+      <div class="chart-grid" id="analytics">
+        <div class="panel chart-card">
+          <div class="panel-head"><h2>Applications per day</h2></div>
+          <div class="panel-body" style="padding:16px 18px"><div id="chart-daily"></div></div>
+        </div>
+        <div class="panel chart-card">
+          <div class="panel-head"><h2>Your funnel</h2></div>
+          <div class="panel-body" style="padding:18px"><div id="chart-funnel"></div></div>
+        </div>
+        <div class="panel chart-card chart-wide">
+          <div class="panel-head"><h2>Top companies applied</h2></div>
+          <div class="panel-body" style="padding:16px 18px"><div id="chart-companies"></div></div>
+        </div>
+      </div>
+
+      <!-- Interview kanban -->
+      <div class="panel" id="kanban-panel" style="margin-bottom:24px">
+        <div class="panel-head">
+          <h2>Interview tracker</h2>
+          <span class="muted" style="font-size:.88rem">Move cards as you progress. We win the calls — you close them.</span>
+        </div>
+        <div class="panel-body" style="padding:18px">
+          <div class="kanban" id="kanban"></div>
+        </div>
+      </div>
+
+      <!-- Referral card -->
+      <div class="panel referral-panel" id="referral-panel" style="margin-bottom:24px">
+        <div class="ref-left">
+          <span class="eyebrow is-green">Give a month, get a month</span>
+          <h2 class="h-lg" style="margin:12px 0 8px">Refer a friend on the clock</h2>
+          <p class="muted">When someone joins with your link, they get their first month <strong>50% off</strong> — and you get a <strong>free month</strong> credited to your account. No limit.</p>
+          <div class="ref-linkbox">
+            <input id="ref-link" readonly />
+            <button id="ref-copy" class="btn btn-primary btn-sm">Copy link</button>
+          </div>
+          <div class="ref-code muted">Your code: <strong id="ref-code">—</strong></div>
+        </div>
+        <div class="ref-right">
+          <div class="ref-stat"><div class="n" id="ref-count">0</div><div class="l">friends referred</div></div>
+          <div class="ref-stat"><div class="n green-text" id="ref-months">0</div><div class="l">free months earned</div></div>
+        </div>
+      </div>
+
+      <!-- Applications -->
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Your applications</h2>
+          <span class="muted" id="app-count" style="font-size:.9rem"></span>
+        </div>
+        <div class="panel-body" style="overflow-x:auto">
+          <table class="table">
+            <thead><tr><th>Company / Role</th><th>Location</th><th>Match</th><th>Status</th><th>Sent</th><th></th></tr></thead>
+            <tbody id="app-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Resume modal -->
+<div id="resume-modal" class="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <strong>RezForge™ resume preview</strong>
+      <button id="resume-close" aria-label="Close">✕</button>
+    </div>
+    <div id="resume-content" style="padding:20px"></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/store.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

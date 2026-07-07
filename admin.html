@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ops Console — OfferPilot</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-chrome="off">
+
+<!-- Gate -->
+<div id="gate" class="gate">
+  <div class="gate-card">
+    <h1>Team sign in</h1>
+    <p>OfferPilot operations console — manage clients and run application cycles.</p>
+    <form id="gate-form" novalidate>
+      <div class="field">
+        <label for="passcode">Passcode</label>
+        <input id="passcode" type="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">Enter console</button>
+    </form>
+    <div class="gate-hint">Demo passcode: <code>offerpilot</code></div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app" class="app-shell hidden">
+  <div class="app-top">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="11" fill="url(#g)"/><path d="M12 26 L20 12 L28 26 M15.5 20.5 H24.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs></svg>
+        <span>Offer<em style="font-style:normal;color:var(--indigo)">Pilot</em></span>
+        <span class="app-tag">Ops</span>
+      </a>
+      <div style="display:flex;gap:10px">
+        <button id="reset-data" class="btn btn-ghost btn-sm">Reset demo</button>
+        <button id="logout" class="btn btn-ghost btn-sm">Sign out</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="app-main">
+    <div class="container">
+      <div class="app-head">
+        <div><h1>Operations console</h1><p>Manage the client roster and run daily application cycles.</p></div>
+        <button id="run-all" class="btn btn-primary btn-sm">▶ Run cycle for all clients</button>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi accent"><div class="l">Clients</div><div class="n" id="stat-clients">0</div><div class="sub">on the books</div></div>
+        <div class="kpi"><div class="l">Active</div><div class="n" id="stat-active">0</div><div class="sub">pipelines running</div></div>
+        <div class="kpi"><div class="l">Applications</div><div class="n" id="stat-apps">0</div><div class="sub">submitted all-time</div></div>
+        <div class="kpi"><div class="l">Screening calls</div><div class="n" id="stat-calls">0</div><div class="sub">across all clients</div></div>
+      </div>
+
+      <div class="panel" style="margin-bottom:24px">
+        <div class="panel-head"><h2>Client roster</h2><span class="muted" style="font-size:.88rem">Click a client to open their pipeline</span></div>
+        <div class="panel-body" style="overflow-x:auto">
+          <table class="table">
+            <thead><tr><th>Client</th><th>Visa</th><th>Status</th><th>Apps</th><th>Calls</th><th></th></tr></thead>
+            <tbody id="roster"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel hidden" id="detail">
+        <div class="panel-head">
+          <div><h2 id="detail-name">—</h2><p class="muted" id="detail-meta" style="font-size:.88rem;margin-top:2px"></p></div>
+        </div>
+        <div class="panel-body" style="padding:20px 22px">
+          <div class="kpis" id="detail-kpis" style="margin-bottom:20px"></div>
+          <div style="overflow-x:auto">
+            <table class="table">
+              <thead><tr><th>Company / Role</th><th>Match</th><th>Status</th><th>Set status</th></tr></thead>
+              <tbody id="detail-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/store.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

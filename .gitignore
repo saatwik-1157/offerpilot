@@ -1,0 +1,12 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Local secrets / overrides (keep real keys out of git)
+js/config.local.js
+
+# Dependencies (none required, but just in case)
+node_modules/
