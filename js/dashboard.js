@@ -28,6 +28,10 @@
     return '<span class="match-chip ' + cls + '">' + n + '%</span>';
   }
   function badge(co) { return co.replace(/[^A-Za-z]/g, "").slice(0, 2); }
+  function planLabel(plan) {
+    if (["Starter", "Pro", "Elite"].indexOf(plan) !== -1) return plan + " plan";
+    return plan || "OfferPilot Monthly";
+  }
   // Relative to the most recent day in the current dataset, so labels stay
   // correct after the ops console runs additional daily cycles.
   var _maxDay = 1;
@@ -45,7 +49,14 @@
 
     document.getElementById("welcome").textContent = "Welcome back, " + client.name.split(" ")[0];
     document.getElementById("sub").textContent =
-      client.visa + (client.optExpiry ? " · work-auth through " + client.optExpiry : "") + " · " + client.plan;
+      client.visa + (client.optExpiry ? " · work-auth through " + client.optExpiry : "");
+    document.getElementById("plan-badge").textContent = planLabel(client.plan);
+
+    // Empty state for brand-new clients (no applications yet)
+    var hasApps = m.total > 0;
+    document.getElementById("empty-state").classList.toggle("hidden", hasApps);
+    document.getElementById("analytics").classList.toggle("hidden", !hasApps);
+    document.getElementById("kanban-panel").classList.toggle("hidden", !hasApps);
 
     // KPIs
     document.getElementById("kpis").innerHTML = [

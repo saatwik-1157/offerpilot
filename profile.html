@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile & settings — OfferPilot</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-chrome="off">
+
+<div class="app-shell">
+  <div class="app-top">
+    <div class="container">
+      <a class="brand" href="dashboard.html">
+        <svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="11" fill="url(#g)"/><path d="M12 26 L20 12 L28 26 M15.5 20.5 H24.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs></svg>
+        <span>Offer<em style="font-style:normal;color:var(--indigo)">Pilot</em></span>
+        <span class="app-tag">Profile</span>
+      </a>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm">← Back to dashboard</a>
+    </div>
+  </div>
+
+  <main class="app-main">
+    <div class="container" style="max-width:760px">
+      <div class="app-head">
+        <div>
+          <h1>Profile &amp; settings</h1>
+          <p class="muted">Update your targeting anytime — changes apply to your next daily cycle.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <form id="profile-form" style="padding:26px" novalidate>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="field"><label for="name">Full name</label><input id="name" name="name" required /></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" disabled /><p class="hint">Contact support to change your email.</p></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="field"><label for="university">University</label><input id="university" name="university" /></div>
+            <div class="field"><label for="location">Location</label><input id="location" name="location" /></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="field"><label for="visa">Visa status</label>
+              <select id="visa" name="visa">
+                <option>F-1 OPT</option><option>F-1 STEM OPT</option><option>F-1 (pre-OPT)</option><option>H-1B</option><option>Green Card / GC-EAD</option>
+              </select>
+            </div>
+            <div class="field"><label for="optExpiry">OPT / work-auth expiry</label><input id="optExpiry" name="optExpiry" type="date" /></div>
+          </div>
+          <div class="field"><label for="roles">Target roles</label>
+            <select id="roles" name="roles" multiple size="6" style="height:auto">
+              <option>Software Engineer</option><option>Data Analyst</option><option>Data Scientist</option><option>Product Manager</option><option>DevOps Engineer</option><option>Business Analyst</option>
+            </select>
+            <p class="hint">Hold Ctrl / Cmd to select more than one.</p>
+          </div>
+          <div class="field"><label for="skills">Top skills (comma-separated)</label><input id="skills" name="skills" /><p class="hint">RezForge™ uses these to tailor each resume and score matches.</p></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+            <a href="dashboard.html" class="btn btn-ghost">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/store.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function () {
+  var sess = window.Store.getSession();
+  if (!sess || sess.role !== "client") { location.href = "dashboard.html"; return; }
+  var client = window.Store.getClient(sess.clientId);
+  if (!client) { window.Store.clearSession(); location.href = "dashboard.html"; return; }
+
+  var f = document.getElementById("profile-form");
+  f.name.value = client.name || "";
+  f.email.value = client.email || "";
+  f.university.value = client.university || "";
+  f.location.value = client.location || "";
+  f.visa.value = client.visa || "F-1 OPT";
+  f.optExpiry.value = client.optExpiry || "";
+  f.skills.value = (client.skills || []).join(", ");
+  // Preselect roles
+  Array.prototype.forEach.call(f.roles.options, function (o) {
+    o.selected = (client.targetRoles || []).indexOf(o.value) !== -1;
+  });
+
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!f.name.value.trim()) { window.toast("Name is required"); return; }
+    var roles = Array.prototype.slice.call(f.roles.selectedOptions).map(function (o) { return o.value; });
+    var skills = f.skills.value.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+    window.Store.updateClient(client.id, {
+      name: f.name.value.trim(),
+      university: f.university.value.trim(),
+      location: f.location.value.trim(),
+      visa: f.visa.value,
+      optExpiry: f.optExpiry.value,
+      targetRoles: roles.length ? roles : ["Software Engineer"],
+      skills: skills.length ? skills : ["Python", "SQL"]
+    });
+    window.toast("Profile saved");
+    setTimeout(function () { location.href = "dashboard.html"; }, 700);
+  });
+})();
+</script>
+</body>
+</html>
