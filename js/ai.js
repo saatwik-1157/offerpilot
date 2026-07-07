@@ -187,12 +187,46 @@
     return apps;
   }
 
+  /* ---------- Live resume tailoring (real Claude via proxy) ----------
+     Calls the RezForge server (server/rezforge-server.mjs) when
+     config.rezforgeEndpoint is set; otherwise returns the deterministic
+     mock. Always resolves — falls back to the mock on any error so the
+     dashboard never breaks. */
+  function generateResumeLive(profile, job) {
+    var cfg = window.OFFERPILOT_CONFIG || {};
+    var mock = function () { return generateResume(profile, job); };
+    if (!cfg.rezforgeEndpoint) {
+      return Promise.resolve(Object.assign(mock(), { live: false }));
+    }
+    return fetch(cfg.rezforgeEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ profile: profile, job: job })
+    }).then(function (r) {
+      if (!r.ok) throw new Error("status " + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (!data || !data.summary) throw new Error("bad payload");
+      return {
+        role: job.role,
+        company: job.company,
+        summary: data.summary,
+        highlights: data.highlights || [],
+        keywords: data.keywords || [],
+        live: true
+      };
+    }).catch(function () {
+      return Object.assign(mock(), { live: false });
+    });
+  }
+
   window.RezForge = {
     COMPANIES: COMPANIES,
     ROLES: Object.keys(ROLE_TEMPLATES),
     LOCATIONS: LOCATIONS,
     scoreMatch: scoreMatch,
     generateResume: generateResume,
+    generateResumeLive: generateResumeLive,
     runDailyCycle: runDailyCycle
   };
 })();

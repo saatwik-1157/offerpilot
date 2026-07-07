@@ -8,5 +8,8 @@ Thumbs.db
 # Local secrets / overrides (keep real keys out of git)
 js/config.local.js
 
-# Dependencies (none required, but just in case)
+# Dependencies (only the optional RezForge live server needs these)
 node_modules/
+server/node_modules/
+server/package-lock.json
+.env
