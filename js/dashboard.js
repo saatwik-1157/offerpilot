@@ -76,8 +76,22 @@
     ].join("");
     document.getElementById("onboard-panel").classList.toggle("hidden", onboarded && m.total > 0);
 
-    // Application table
-    var rows = apps.slice(0, 60).map(function (a) {
+    // Application table (filterable by status)
+    _apps = apps;
+    renderAppTable();
+
+    renderAnalytics(client, apps, m);
+    renderKanban(client, apps);
+    renderNotifications(client);
+    renderReferral(client);
+  }
+
+  /* ---------- Application table (with status filter) ---------- */
+  var _apps = [];
+  function renderAppTable() {
+    var filter = (document.getElementById("status-filter") || {}).value || "All";
+    var list = filter === "All" ? _apps : _apps.filter(function (a) { return a.status === filter; });
+    var rows = list.slice(0, 60).map(function (a) {
       return '<tr>' +
         '<td><div class="co-cell"><div class="co-badge">' + badge(a.company) + '</div>' +
           '<div><div style="font-weight:650">' + a.company + '</div>' +
@@ -89,22 +103,20 @@
         '<td><button class="btn btn-ghost btn-sm view-resume" data-id="' + a.id + '">Resume</button></td>' +
       '</tr>';
     }).join("");
+    var emptyMsg = _apps.length === 0
+      ? "No applications yet — your specialist launches your pipeline within 3–7 business days of onboarding."
+      : "No applications with status “" + filter + "”.";
     document.getElementById("app-rows").innerHTML = rows ||
-      '<tr><td colspan="6" class="muted center" style="padding:40px">No applications yet — your specialist launches your pipeline within 3–7 business days of onboarding.</td></tr>';
-    document.getElementById("app-count").textContent = apps.length + " total";
+      '<tr><td colspan="6" class="muted center" style="padding:40px">' + emptyMsg + '</td></tr>';
+    document.getElementById("app-count").textContent =
+      (filter === "All" ? _apps.length + " total" : list.length + " of " + _apps.length);
 
-    // Wire resume buttons
     document.querySelectorAll(".view-resume").forEach(function (b) {
       b.addEventListener("click", function () {
-        var app = apps.filter(function (x) { return x.id === b.dataset.id; })[0];
+        var app = _apps.filter(function (x) { return x.id === b.dataset.id; })[0];
         if (app) showResume(app);
       });
     });
-
-    renderAnalytics(client, apps, m);
-    renderKanban(client, apps);
-    renderNotifications(client);
-    renderReferral(client);
   }
 
   /* ---------- Notifications ---------- */
@@ -269,6 +281,10 @@
   document.getElementById("logout").addEventListener("click", function () {
     S.clearSession(); location.reload();
   });
+
+  // Status filter
+  var statusFilter = document.getElementById("status-filter");
+  if (statusFilter) statusFilter.addEventListener("change", renderAppTable);
 
   // Notifications dropdown
   var bell = document.getElementById("bell");

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1020"/><stop offset="1" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#6366F1"/><stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#A5B4FC"/><stop offset="1" stop-color="#C4B5FD"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="260" fill="#6366F1" opacity="0.18"/>
+  <circle cx="200" cy="560" r="220" fill="#10B981" opacity="0.10"/>
+  <g transform="translate(90,110)">
+    <rect width="84" height="84" rx="22" fill="url(#mark)"/>
+    <path d="M25 62 L42 26 L59 62 M32 49 H52" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <text x="104" y="58" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="800" fill="#fff">OfferPilot</text>
+  </g>
+  <text x="90" y="310" font-family="Inter, Arial, sans-serif" font-size="88" font-weight="900" fill="#fff">We apply.</text>
+  <text x="90" y="410" font-family="Inter, Arial, sans-serif" font-size="88" font-weight="900" fill="url(#txt)">You interview.</text>
+  <text x="92" y="480" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500" fill="#AEB6D0">Done-for-you job applications for F-1 / OPT students.</text>
+  <g transform="translate(92,520)">
+    <rect width="360" height="56" rx="28" fill="#4F46E5"/>
+    <text x="180" y="37" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#fff">25–35 applications a day</text>
+  </g>
+  <text x="480" y="557" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="600" fill="#6EE7B7">$249/mo · no salary cut</text>
+</svg>

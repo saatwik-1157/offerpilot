@@ -138,7 +138,18 @@
       <div class="panel">
         <div class="panel-head">
           <h2>Your applications</h2>
-          <span class="muted" id="app-count" style="font-size:.9rem"></span>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span class="muted" id="app-count" style="font-size:.9rem"></span>
+            <select class="mini" id="status-filter" aria-label="Filter by status">
+              <option>All</option>
+              <option>Submitted</option>
+              <option>Viewed</option>
+              <option>Screening Call</option>
+              <option>Interview</option>
+              <option>Offer</option>
+              <option>Rejected</option>
+            </select>
+          </div>
         </div>
         <div class="panel-body" style="overflow-x:auto">
           <table class="table">

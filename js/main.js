@@ -78,9 +78,9 @@
             '<a href="mailto:' + (C.email || "hello@offerpilot.example") + '">Contact</a>' +
           '</div>' +
           '<div class="col"><h5>Legal</h5>' +
-            '<a href="#">Refund policy</a>' +
-            '<a href="#">Privacy</a>' +
-            '<a href="#">Terms</a>' +
+            '<a href="legal.html#refund">Refund policy</a>' +
+            '<a href="legal.html#privacy">Privacy</a>' +
+            '<a href="legal.html#terms">Terms</a>' +
           '</div>' +
         '</div>' +
         '<div class="footer-bottom">' +

@@ -16,6 +16,7 @@ Built as a fast, dependency-free static web app (vanilla HTML/CSS/JS). No build 
 | **Signup / onboarding** | `signup.html` | Collects profile (roles, skills, visa) → creates an account → seeds the pipeline |
 | **Client dashboard** | `dashboard.html` | Login, KPIs, live application tracker, per-role RezForge™ resume preview, onboarding checklist, empty-state for new clients, plan badge |
 | **Profile & settings** | `profile.html` | Session-gated form to edit target roles, skills, visa, and OPT expiry; changes apply to the next daily cycle |
+| **Legal** | `legal.html` | Refund policy, privacy, and terms (anchored sections wired from the footer) |
 | **Ops console** | `admin.html` | Passcode-gated team view: client roster, run daily application cycles, update statuses, aggregate metrics |
 
 ### Feature highlights
