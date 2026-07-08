@@ -26,7 +26,7 @@ window.OFFERPILOT_CONFIG = {
   adminPasscode: "offerpilot",
 
   // Live domain (canonical/sitemap). Blank = demo.
-  siteUrl: "https://offerpilot.example",
+  siteUrl: "https://saatwik-1157.github.io/offerpilot",
 
   /* ============================================================
      INTEGRATIONS — leave blank to run in demo mode (localStorage).

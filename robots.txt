@@ -4,4 +4,4 @@ Disallow: /dashboard.html
 Disallow: /admin.html
 Disallow: /profile.html
 
-Sitemap: https://offerpilot.example/sitemap.xml
+Sitemap: https://saatwik-1157.github.io/offerpilot/sitemap.xml
