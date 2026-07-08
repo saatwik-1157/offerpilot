@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OPT Runway Calculator — OfferPilot | Free tool</title>
+<meta name="description" content="Free interactive tool: enter your OPT start date and degree type to see your work-authorization runway, unemployment-days budget, STEM extension window, and H-1B lottery timing." />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<header class="hero" style="padding:64px 0 52px">
+  <div class="container" style="max-width:900px">
+    <a href="resources.html" class="guide-back">← Resource hub</a>
+    <span class="eyebrow hero-eyebrow" style="margin-top:18px">Free tool · Nothing to sign up for</span>
+    <h1 style="max-width:720px;margin-top:14px">OPT Runway <span class="grad-text">Calculator</span></h1>
+    <p class="lead" style="color:#AEB6D0;max-width:600px">See exactly how much work-authorization runway you have left — and the deadlines you're actually racing — in one screen.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:56px">
+  <div class="container" style="max-width:960px">
+    <div class="runway-grid">
+
+      <!-- Inputs -->
+      <div class="panel" style="padding:26px">
+        <h2 class="h-lg" style="margin-bottom:18px">Your details</h2>
+        <div class="field">
+          <label for="opt-start">OPT (EAD) start date</label>
+          <input id="opt-start" type="date" />
+          <p class="hint">The start date printed on your EAD card.</p>
+        </div>
+        <div class="field">
+          <label>Degree type</label>
+          <div class="seg" id="degree-seg">
+            <button type="button" data-val="stem" class="active">STEM-eligible</button>
+            <button type="button" data-val="non">Non-STEM</button>
+          </div>
+          <p class="hint">STEM degrees can qualify for a 24-month extension (36 months total).</p>
+        </div>
+        <div class="field">
+          <label for="opt-used">Unemployment days already used</label>
+          <input id="opt-used" type="number" min="0" value="0" />
+          <p class="hint">Days since your EAD start you've spent without qualifying employment.</p>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="panel runway-result" style="padding:26px">
+        <div class="runway-headline">
+          <div class="runway-num" id="r-days">—</div>
+          <div class="runway-label" id="r-days-label">days of current work authorization left</div>
+        </div>
+
+        <div class="runway-stat-row" id="r-stem-row">
+          <div class="runway-stat"><div class="rs-n" id="r-stem-days">—</div><div class="rs-l">days with STEM extension</div></div>
+          <div class="runway-stat"><div class="rs-n" id="r-unemp">—</div><div class="rs-l" id="r-unemp-l">unemployment days left</div></div>
+        </div>
+
+        <div class="timeline-wrap">
+          <div class="timeline" id="r-timeline">
+            <div class="tl-opt" id="tl-opt"></div>
+            <div class="tl-stem" id="tl-stem"></div>
+            <div class="tl-today" id="tl-today"><span>Today</span></div>
+          </div>
+          <div class="tl-legend"><span><i class="dot-opt"></i> OPT</span><span id="tl-legend-stem"><i class="dot-stem"></i> STEM extension</span></div>
+        </div>
+
+        <div class="gauge-wrap">
+          <div class="gauge-top"><span>Unemployment budget</span><span id="r-gauge-txt">—</span></div>
+          <div class="gauge"><div class="gauge-fill" id="r-gauge"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key dates -->
+    <div class="panel" style="padding:24px;margin-top:22px">
+      <h2 class="h-lg" style="margin-bottom:16px">Your key dates</h2>
+      <div class="keydates" id="r-keydates"></div>
+      <div class="prose-note" style="margin-top:20px">Estimates based on typical rules and simple month arithmetic — your actual EAD dates and eligibility govern. This is general information, not legal or immigration advice. Confirm everything with your DSO and, for anything consequential, an immigration attorney. Related reading: <a href="guide.html?id=timeline" style="color:var(--indigo);font-weight:700">the full OPT → H-1B timeline guide</a>.</div>
+    </div>
+
+    <div class="cta-band reveal" style="margin-top:40px">
+      <h2 class="h-xl">Your runway is shorter than it feels.</h2>
+      <p>Stop burning it on applications. OfferPilot sends 25–35 tailored applications a day so you spend the clock interviewing.</p>
+      <a href="signup.html" class="btn btn-white btn-lg">Start applying →</a>
+    </div>
+  </div>
+</section>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function () {
+  function addMonths(d, m){ var x = new Date(d.getTime()); x.setMonth(x.getMonth() + m); return x; }
+  function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+  function days(a, b){ return Math.round((b - a) / 86400000); }
+  function fmt(d){ return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }); }
+  function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function iso(d){ return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+
+  var startEl = document.getElementById("opt-start");
+  var usedEl = document.getElementById("opt-used");
+  var seg = document.getElementById("degree-seg");
+  var degree = "stem";
+
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  // Sensible default: OPT started ~4 months ago.
+  startEl.value = iso(addDays(today, -120));
+
+  seg.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    degree = b.dataset.val;
+    [].forEach.call(seg.children, function (c){ c.classList.toggle("active", c === b); });
+    render();
+  });
+  startEl.addEventListener("change", render);
+  startEl.addEventListener("input", render);
+  usedEl.addEventListener("input", render);
+
+  function render() {
+    if (!startEl.value) return;
+    var start = new Date(startEl.value + "T00:00:00");
+    if (isNaN(start)) return;
+    var stem = degree === "stem";
+
+    var optEnd = addDays(addMonths(start, 12), -1);
+    var stemEnd = addDays(addMonths(start, 36), -1);
+    var budget = stem ? 150 : 90;
+    var used = clamp(parseInt(usedEl.value, 10) || 0, 0, budget);
+    var remaining = budget - used;
+
+    var runway = Math.max(0, days(today, optEnd));
+    var stemRunway = Math.max(0, days(today, stemEnd));
+
+    // Headline
+    document.getElementById("r-days").textContent = runway.toLocaleString("en-US");
+    document.getElementById("r-days-label").textContent =
+      today > optEnd ? "your OPT period has ended" : "days of current work authorization left";
+
+    // Stem + unemployment
+    document.getElementById("r-stem-row").style.display = stem ? "" : "none";
+    document.getElementById("r-stem-days").textContent = stemRunway.toLocaleString("en-US");
+    document.getElementById("r-unemp").textContent = remaining;
+    document.getElementById("r-gauge-txt").textContent = used + " / " + budget + " days used";
+    var gpct = clamp(used / budget * 100, 0, 100);
+    var gauge = document.getElementById("r-gauge");
+    gauge.style.width = gpct + "%";
+    gauge.style.background = gpct > 80 ? "#EF4444" : gpct > 55 ? "var(--amber)" : "var(--emerald)";
+
+    // Timeline
+    var spanEnd = stem ? stemEnd : optEnd;
+    var totalSpan = Math.max(1, days(start, spanEnd));
+    var optPct = stem ? clamp(days(start, optEnd) / totalSpan * 100, 0, 100) : 100;
+    var todayPct = clamp(days(start, today) / totalSpan * 100, 0, 100);
+    document.getElementById("tl-opt").style.width = optPct + "%";
+    document.getElementById("tl-stem").style.width = (100 - optPct) + "%";
+    document.getElementById("tl-today").style.left = todayPct + "%";
+    document.getElementById("tl-legend-stem").style.display = stem ? "" : "none";
+
+    // H-1B next registration (typically early March)
+    var y = today.getFullYear();
+    var marchThis = new Date(y, 2, 1);
+    var nextMarch = today < marchThis ? marchThis : new Date(y + 1, 2, 1);
+    var applyBy = new Date(nextMarch.getFullYear() - 1, 11, 1); // ~Dec before
+
+    var rows = [
+      ["🪪", "OPT work authorization ends", fmt(optEnd)],
+      ["⏳", "Unemployment limit if you stay jobless", remaining + " days from today (" + fmt(addDays(today, remaining)) + ")"],
+      stem ? ["🎓", "Apply for the STEM extension before OPT ends", "file well before " + fmt(optEnd)] : null,
+      stem ? ["🚀", "Work authorization with STEM extension ends", fmt(stemEnd)] : null,
+      ["🎟️", "Next H-1B registration window", "around " + fmt(nextMarch)],
+      ["📌", "Aim to have offers in hand by", "~" + fmt(applyBy) + " (so an employer can register you)"]
+    ].filter(Boolean);
+
+    document.getElementById("r-keydates").innerHTML = rows.map(function (r) {
+      return '<div class="keydate"><span class="kd-ico">' + r[0] + '</span>' +
+        '<span class="kd-label">' + r[1] + '</span><span class="kd-val">' + r[2] + '</span></div>';
+    }).join("");
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

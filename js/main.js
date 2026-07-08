@@ -11,6 +11,7 @@
     { label: "How it works", href: "index.html#how" },
     { label: "Results", href: "index.html#results" },
     { label: "Pricing", href: "index.html#pricing" },
+    { label: "Runway tool", href: "runway.html" },
     { label: "Resources", href: "resources.html" },
     { label: "FAQ", href: "index.html#faq" }
   ];

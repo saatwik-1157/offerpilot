@@ -24,6 +24,7 @@ Built as a fast, dependency-free static web app (vanilla HTML/CSS/JS). No build 
 | **Ops console** | `admin.html` | Passcode-gated team view: client roster, run daily application cycles, update statuses, aggregate metrics |
 
 ### Feature highlights
+- **OPT Runway Calculator** — a unique, niche-specific free tool ([runway.html](runway.html)): enter an OPT start date + degree type and instantly see work-authorization runway, unemployment-days budget, STEM window, and H-1B lottery timing — a lead-gen tool no generic job site has.
 - **Dark mode** — persisted light/dark theme that defaults to the OS setting, applied before first paint (no flash), with a floating toggle on every page ([js/theme.js](js/theme.js)).
 - **Company logos** — real company logos on badges (favicon service) with an automatic monogram fallback.
 - **Analytics** — dashboard charts (applications/day, funnel, top companies) via a tiny dependency-free SVG engine.
