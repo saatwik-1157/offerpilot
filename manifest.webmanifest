@@ -2,7 +2,7 @@
   "name": "OfferPilot — We apply. You interview.",
   "short_name": "OfferPilot",
   "description": "Done-for-you job applications for F-1/OPT students. 25–35 tailored applications a day.",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0B1020",
   "theme_color": "#4F46E5",
