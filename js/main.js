@@ -17,9 +17,10 @@
 
   var LOGO =
     '<svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-    '<rect width="40" height="40" rx="11" fill="url(#g)"/>' +
-    '<path d="M12 26 L20 12 L28 26 M15.5 20.5 H24.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<defs><linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">' +
+    '<rect width="40" height="40" rx="11" fill="url(#opg)"/>' +
+    '<path d="M30 10 L9 18 L20 22 Z" fill="#fff"/>' +
+    '<path d="M30 10 L20 22 L22 31 Z" fill="#fff" fill-opacity="0.72"/>' +
+    '<defs><linearGradient id="opg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">' +
     '<stop stop-color="#6366F1"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs></svg>';
 
   function brandHTML() {
