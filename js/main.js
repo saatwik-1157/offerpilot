@@ -55,6 +55,11 @@
     nav.querySelectorAll(".nav-links a").forEach(function (a) {
       a.addEventListener("click", function () { document.body.classList.remove("nav-open"); });
     });
+
+    // Elevate the bar with a shadow once the page scrolls.
+    var onScroll = function () { nav.classList.toggle("scrolled", window.scrollY > 8); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 
   function buildFooter() {
