@@ -15,7 +15,7 @@ window.OFFERPILOT_CONFIG = {
   phone: "+1 (555) 010-2025",
 
   // Pricing
-  price: 249,
+  price: 100,
   priceUnit: "/month",
   appsPerDayMin: 25,
   appsPerDayMax: 35,
