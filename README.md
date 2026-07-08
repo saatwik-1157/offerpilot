@@ -1,4 +1,8 @@
+<img src="assets/logo-lockup.svg" alt="OfferPilot" height="44" />
+
 # OfferPilot™ — *We apply. You interview.*
+
+Brand mark: [`assets/logo.svg`](assets/logo.svg) (icon) · [`assets/logo-lockup.svg`](assets/logo-lockup.svg) (full lockup) — a paper-plane "send" mark on an indigo→violet gradient.
 
 A done-for-you **job-application platform** for international students on **F-1 / OPT / STEM-OPT** visas. OfferPilot submits 25–35 hand-matched applications a day on the member's behalf — each with a resume tailored by the **RezForge™** engine — so students spend their time interviewing, not applying.
 
