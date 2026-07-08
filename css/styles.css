@@ -473,7 +473,8 @@ select.mini { padding: 6px 10px; font-size: .84rem; border: 1px solid var(--bord
 .plan-badge { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 800; letter-spacing: .02em; color: #fff; background: var(--grad); padding: 5px 13px; border-radius: var(--r-pill); box-shadow: 0 4px 12px rgba(79,70,229,.28); }
 
 /* ---------- Empty state ---------- */
-.empty-state { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 48px 32px; text-align: center; margin-bottom: 24px; }
+.empty-state { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 48px 32px; text-align: center; margin-bottom: 24px; position: relative; overflow: hidden; }
+.empty-state::after { content: ""; position: absolute; right: -26px; bottom: -30px; width: 190px; height: 190px; opacity: .06; transform: rotate(-10deg); pointer-events: none; background: no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="M30 10 L9 18 L20 22 Z" fill="%236366F1"/><path d="M30 10 L20 22 L22 31 Z" fill="%236366F1"/></svg>'); }
 .empty-state .es-ico { font-size: 3rem; margin-bottom: 12px; }
 .empty-state h2 { font-size: 1.4rem; margin-bottom: 10px; }
 .empty-state p { color: var(--muted); max-width: 520px; margin: 0 auto 22px; }
