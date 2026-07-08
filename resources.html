@@ -25,14 +25,7 @@
 
 <section class="section">
   <div class="container">
-    <div class="res-grid">
-      <div class="res-card reveal"><div class="thumb">🗓️</div><div class="rbody"><div class="tag">OPT · Deadlines</div><h3>The F-1 → OPT → H-1B timeline, decoded</h3><p>Every date that matters — EAD start, the 90-day unemployment rule, STEM extension windows, and the H-1B lottery calendar — laid out so you can plan backward from your clock.</p><span class="read">Read guide →</span></div></div>
-      <div class="res-card reveal"><div class="thumb g2">🏢</div><div class="rbody"><div class="tag">Sponsorship</div><h3>How to spot employers that actually sponsor</h3><p>The tells in a job description, public LCA data, cap-exempt employers (universities, nonprofits), and how to avoid burning weeks on roles that will never say yes.</p><span class="read">Read guide →</span></div></div>
-      <div class="res-card reveal"><div class="thumb g3">📄</div><div class="rbody"><div class="tag">Resumes</div><h3>Why your resume dies at the ATS (and the fix)</h3><p>What applicant-tracking systems actually score, the keyword-match myth vs. reality, and why one tailored resume per role beats one polished master resume every time.</p><span class="read">Read guide →</span></div></div>
-      <div class="res-card reveal"><div class="thumb g2">🎯</div><div class="rbody"><div class="tag">Strategy</div><h3>The volume math no one tells you</h3><p>Why visa candidates need 3–5× the application volume for the same interview count — and how to hit that without losing your mind or your GPA.</p><span class="read">Read guide →</span></div></div>
-      <div class="res-card reveal"><div class="thumb g3">💬</div><div class="rbody"><div class="tag">Interviews</div><h3>Answering "do you need sponsorship?" without losing the room</h3><p>The exact phrasing that keeps you in the process, when to disclose, and how to reframe your status as low-risk to a hiring manager.</p><span class="read">Read guide →</span></div></div>
-      <div class="res-card reveal"><div class="thumb">🧭</div><div class="rbody"><div class="tag">Careers</div><h3>Which roles convert best for new grads on OPT</h3><p>A data-backed look at the titles, industries, and locations where sponsorship-friendly offers actually happen for early-career candidates.</p><span class="read">Read guide →</span></div></div>
-    </div>
+    <div class="res-grid" id="res-grid"></div>
 
     <div class="cta-band reveal" style="margin-top:56px">
       <h2 class="h-xl">Reading is good. Applying is better.</h2>
@@ -43,6 +36,20 @@
 </section>
 
 <script src="js/config.js"></script>
+<script src="js/guides.js"></script>
 <script src="js/main.js"></script>
+<script>
+(function () {
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  var grid = document.getElementById("res-grid");
+  grid.innerHTML = (window.GUIDES || []).map(function (g) {
+    return '<a class="res-card reveal" href="guide.html?id=' + encodeURIComponent(g.id) + '">' +
+      '<div class="thumb ' + (g.thumb || "") + '">' + g.emoji + '</div>' +
+      '<div class="rbody"><div class="tag">' + esc(g.tag) + '</div><h3>' + esc(g.title) + '</h3>' +
+      '<p>' + esc(g.dek) + '</p>' +
+      '<span class="read">Read guide · ' + g.readMins + ' min →</span></div></a>';
+  }).join("");
+})();
+</script>
 </body>
 </html>
