@@ -588,6 +588,46 @@ select.mini { padding: 6px 10px; font-size: .84rem; border: 1px solid var(--bord
 .res-card p { color: var(--muted); font-size: .9rem; flex: 1; }
 .res-card .read { margin-top: 14px; color: var(--indigo); font-weight: 700; font-size: .88rem; }
 
+/* ---------- OPT Runway calculator ---------- */
+.runway-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 22px; align-items: start; }
+.seg { display: inline-flex; background: var(--surface-2); border-radius: var(--r-pill); padding: 4px; gap: 4px; }
+.seg button { padding: 9px 18px; border-radius: var(--r-pill); font-weight: 650; font-size: .92rem; color: var(--muted); transition: .2s var(--ease); }
+.seg button.active { background: var(--card); color: var(--ink); box-shadow: var(--shadow-sm); }
+.runway-result { background: var(--grad); border: 0; color: #fff; }
+.runway-headline { text-align: center; padding: 8px 0 18px; }
+.runway-num { font-size: clamp(3.2rem, 9vw, 4.6rem); font-weight: 900; line-height: 1; letter-spacing: -.03em; }
+.runway-label { color: rgba(255,255,255,.85); margin-top: 8px; font-weight: 500; }
+.runway-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.runway-stat { background: rgba(255,255,255,.12); border-radius: var(--r); padding: 14px; text-align: center; }
+.runway-stat .rs-n { font-size: 1.7rem; font-weight: 800; }
+.runway-stat .rs-l { font-size: .78rem; color: rgba(255,255,255,.85); margin-top: 2px; }
+.timeline-wrap { margin: 4px 0 18px; }
+.timeline { position: relative; height: 16px; border-radius: 999px; overflow: hidden; display: flex; background: rgba(255,255,255,.15); }
+.tl-opt { background: rgba(255,255,255,.9); height: 100%; }
+.tl-stem { background: rgba(255,255,255,.45); height: 100%; }
+.tl-today { position: absolute; top: -5px; bottom: -5px; width: 3px; background: #0B1020; border-radius: 3px; }
+.tl-today span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: .66rem; font-weight: 800; color: #fff; white-space: nowrap; }
+.tl-legend { display: flex; gap: 18px; margin-top: 14px; font-size: .78rem; color: rgba(255,255,255,.9); }
+.tl-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.tl-legend .dot-opt { background: rgba(255,255,255,.9); }
+.tl-legend .dot-stem { background: rgba(255,255,255,.45); }
+.gauge-wrap { margin-top: 6px; }
+.gauge-top { display: flex; justify-content: space-between; font-size: .82rem; color: rgba(255,255,255,.9); margin-bottom: 7px; font-weight: 600; }
+.gauge { height: 12px; border-radius: 999px; background: rgba(255,255,255,.2); overflow: hidden; }
+.gauge-fill { height: 100%; width: 0; border-radius: 999px; transition: width .35s var(--ease); }
+.keydates { display: grid; gap: 2px; }
+.keydate { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 12px; padding: 13px 4px; border-bottom: 1px solid var(--border); }
+.keydate:last-child { border-bottom: none; }
+.kd-ico { font-size: 1.2rem; text-align: center; }
+.kd-label { color: var(--text); font-weight: 550; }
+.kd-val { color: var(--ink); font-weight: 750; font-size: .92rem; text-align: right; }
+
+/* Resource-hub tool banner */
+.tool-banner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; background: var(--grad); color: #fff; border-radius: var(--r-lg); padding: 28px 32px; box-shadow: var(--shadow-lg); margin-bottom: 34px; }
+.tool-banner h2 { color: #fff; font-size: 1.4rem; }
+.tool-banner p { color: rgba(255,255,255,.9); margin-top: 4px; }
+@media (max-width: 760px) { .runway-grid { grid-template-columns: 1fr; } .tool-banner { grid-template-columns: 1fr; text-align: center; } .keydate { grid-template-columns: 28px 1fr; } .kd-val { grid-column: 2; text-align: left; color: var(--indigo); } }
+
 /* ---------- Guide article ---------- */
 .guide-back { display: inline-flex; align-items: center; gap: 6px; color: #C7CBF5; font-weight: 600; font-size: .9rem; }
 .guide-back:hover { color: #fff; }
