@@ -28,6 +28,13 @@
     return '<span class="match-chip ' + cls + '">' + n + '%</span>';
   }
   function badge(co) { return co.replace(/[^A-Za-z]/g, "").slice(0, 2); }
+  // Escape any value that lands in innerHTML — resume fields come from the
+  // RezForge server (model output) in live mode, so treat them as untrusted.
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
   function planLabel(plan) {
     if (["Starter", "Pro", "Elite"].indexOf(plan) !== -1) return plan + " plan";
     return plan || "OfferPilot Monthly";
@@ -241,12 +248,12 @@
       ? '<span class="match-chip match-hi">✨ AI-generated</span>'
       : '';
     return '<div class="resume-doc">' +
-        '<h3>' + (app.company + ' — ' + r.role) + '</h3>' +
-        '<div class="role">tailored for ' + app.company + ' ' + matchChip(app.matchScore) + ' ' + liveBadge + '</div>' +
-        '<p class="muted" style="font-size:.92rem">' + r.summary + '</p>' +
-        '<div class="kw">' + (r.keywords || []).map(function (k) { return '<span>' + k + '</span>'; }).join("") + '</div>' +
+        '<h3>' + esc(app.company + ' — ' + r.role) + '</h3>' +
+        '<div class="role">tailored for ' + esc(app.company) + ' ' + matchChip(app.matchScore) + ' ' + liveBadge + '</div>' +
+        '<p class="muted" style="font-size:.92rem">' + esc(r.summary) + '</p>' +
+        '<div class="kw">' + (r.keywords || []).map(function (k) { return '<span>' + esc(k) + '</span>'; }).join("") + '</div>' +
         '<div style="font-weight:700;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px">Highlights</div>' +
-        '<ul>' + (r.highlights || []).map(function (h) { return '<li>' + h + '</li>'; }).join("") + '</ul>' +
+        '<ul>' + (r.highlights || []).map(function (h) { return '<li>' + esc(h) + '</li>'; }).join("") + '</ul>' +
         '<div style="margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
           '<button class="btn btn-primary btn-sm" id="resume-enhance">✨ Regenerate with RezForge AI</button>' +
           '<span class="muted" style="font-size:.8rem" id="resume-enhance-note"></span>' +
