@@ -1,0 +1,10 @@
+{
+  "name": "offerpilot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "OfferPilot — static site + optional RezForge serverless function (api/rezforge.js) for real Claude resume tailoring.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.70.0"
+  }
+}
