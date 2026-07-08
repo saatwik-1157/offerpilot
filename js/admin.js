@@ -70,10 +70,10 @@
     document.getElementById("detail-meta").textContent =
       c.university + " · " + c.location + " · targets: " + c.targetRoles.join(", ");
     document.getElementById("detail-kpis").innerHTML =
-      '<div class="kpi accent"><div class="l">Applications</div><div class="n">' + m.total + '</div><div class="sub">lifetime</div></div>' +
-      '<div class="kpi"><div class="l">Responses</div><div class="n">' + m.responded + '</div><div class="sub">' + m.responseRate + '% rate</div></div>' +
-      '<div class="kpi"><div class="l">Screening calls</div><div class="n">' + m.screeningCalls + '</div><div class="sub">incl. interviews</div></div>' +
-      '<div class="kpi"><div class="l">Offers</div><div class="n">' + m.offers + '</div><div class="sub">closed</div></div>';
+      '<div class="kpi k-indigo"><div class="l">Applications</div><div class="n">' + m.total + '</div><div class="sub">lifetime</div></div>' +
+      '<div class="kpi k-sky"><div class="l">Responses</div><div class="n">' + m.responded + '</div><div class="sub">' + m.responseRate + '% rate</div></div>' +
+      '<div class="kpi k-amber"><div class="l">Screening calls</div><div class="n">' + m.screeningCalls + '</div><div class="sub">incl. interviews</div></div>' +
+      '<div class="kpi k-emerald"><div class="l">Offers</div><div class="n">' + m.offers + '</div><div class="sub">closed</div></div>';
 
     document.getElementById("detail-rows").innerHTML = apps.slice(0, 40).map(function (a) {
       var opts = S.STATUSES.map(function (s) {
