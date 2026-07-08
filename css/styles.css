@@ -580,7 +580,7 @@ select.mini { padding: 6px 10px; font-size: .84rem; border: 1px solid var(--bord
 .plan-toggle button { padding: 9px 20px; border-radius: var(--r-pill); font-weight: 650; font-size: .92rem; color: var(--muted); transition: .2s var(--ease); }
 .plan-toggle button.active { background: var(--card); color: var(--ink); box-shadow: var(--shadow-sm); }
 .plan-toggle .save { color: var(--emerald-dark); font-size: .78rem; font-weight: 700; }
-.tiers { display: grid; grid-template-columns: repeat(2, minmax(0, 320px)); justify-content: center; gap: 22px; align-items: stretch; }
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
 .tier { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 30px 26px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
 .tier:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .tier.pop { border: 2px solid var(--indigo); box-shadow: var(--shadow-lg); position: relative; }
