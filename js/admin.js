@@ -80,7 +80,7 @@
         return '<option' + (s === a.status ? ' selected' : '') + '>' + s + '</option>';
       }).join("");
       return '<tr>' +
-        '<td><div class="co-cell"><div class="co-badge">' + badge(a.company) + '</div><div>' +
+        '<td><div class="co-cell"><div class="co-badge">' + window.Brand.badgeInner(a.company) + '</div><div>' +
           '<div style="font-weight:650">' + a.company + '</div><div class="muted" style="font-size:.8rem">' + a.role + '</div></div></div></td>' +
         '<td><span class="match-chip ' + (a.matchScore >= 88 ? 'match-hi' : a.matchScore >= 78 ? 'match-mid' : 'match-lo') + '">' + a.matchScore + '%</span></td>' +
         '<td>' + statusPill(a.status) + '</td>' +
