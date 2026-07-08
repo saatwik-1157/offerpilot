@@ -134,9 +134,23 @@
     window._toastT = setTimeout(function () { t.classList.remove("show"); }, 2400);
   };
 
+  function cookieBanner() {
+    try { if (localStorage.getItem("offerpilot.cookies")) return; } catch (e) {}
+    var b = document.createElement("div");
+    b.className = "cookie-banner";
+    b.innerHTML = '<p>We use cookies to keep you signed in and improve OfferPilot. See our <a href="legal.html#privacy">privacy policy</a>.</p>' +
+      '<button class="btn btn-primary btn-sm">Got it</button>';
+    document.body.appendChild(b);
+    b.querySelector("button").addEventListener("click", function () {
+      try { localStorage.setItem("offerpilot.cookies", "1"); } catch (e) {}
+      b.style.display = "none";
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     if (document.body.dataset.chrome !== "off") { buildNav(); buildFooter(); backToTop(); }
     reveals();
+    cookieBanner();
     // Fill any [data-brand] / [data-price] placeholders
     document.querySelectorAll("[data-price]").forEach(function (e) { e.textContent = C.price; });
     document.querySelectorAll("[data-brand]").forEach(function (e) { e.textContent = C.brand; });
