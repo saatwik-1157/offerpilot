@@ -85,6 +85,16 @@
       }).join("") + '</div>';
   }
   window.scrollTo(0, 0);
+
+  // Reading progress bar
+  var prog = document.createElement("div");
+  prog.className = "read-progress";
+  document.body.appendChild(prog);
+  window.addEventListener("scroll", function () {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }, { passive: true });
 })();
 </script>
 </body>

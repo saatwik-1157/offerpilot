@@ -141,8 +141,9 @@
       <div class="panel">
         <div class="panel-head">
           <h2>Your applications</h2>
-          <div style="display:flex;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
             <span class="muted" id="app-count" style="font-size:.9rem"></span>
+            <input class="mini search-input" id="app-search" type="search" placeholder="Search company / role…" aria-label="Search applications" />
             <select class="mini" id="status-filter" aria-label="Filter by status">
               <option>All</option>
               <option>Submitted</option>
@@ -152,6 +153,7 @@
               <option>Offer</option>
               <option>Rejected</option>
             </select>
+            <button class="btn btn-ghost btn-sm" id="app-export">⬇ Export CSV</button>
           </div>
         </div>
         <div class="panel-body" style="overflow-x:auto">
