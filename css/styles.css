@@ -269,7 +269,20 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg); top: 0; }
   background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg);
   padding: 28px; box-shadow: var(--shadow-sm); transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
-.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.card:hover { transform: translateY(-4px); box-shadow: 0 20px 46px rgba(99,102,241,.16); border-color: var(--border-strong); }
+
+/* ---------- Card + input polish (hover lift + focus glow) ---------- */
+.step, .tcard, .inbox { transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease); }
+.step:hover, .tcard:hover, .inbox:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.res-card:hover { box-shadow: 0 20px 46px rgba(99,102,241,.18); }
+.field input, .field select, .field textarea, .ref-linkbox input, select.mini, #ref-link, #opt-start, #opt-used {
+  transition: border-color .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+}
+.field input:hover, .field select:hover, .field textarea:hover, .seg:hover { border-color: var(--indigo); }
+.field input:focus, .field select:focus, .field textarea:focus,
+.ref-linkbox input:focus, select.mini:focus {
+  border-color: var(--indigo); box-shadow: 0 0 0 4px var(--indigo-soft), 0 2px 8px rgba(79,70,229,.12); outline: none;
+}
 .card .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; background: var(--indigo-soft); color: var(--indigo); margin-bottom: 16px; }
 .card .ico.green { background: var(--emerald-soft); color: var(--emerald-dark); }
 .card .ico.sky { background: var(--sky-soft); color: var(--sky); }
