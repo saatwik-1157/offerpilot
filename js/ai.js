@@ -220,6 +220,43 @@
     });
   }
 
+  /* ---------- Company logos ---------- */
+  var COMPANY_DOMAINS = {
+    "Google": "google.com", "Amazon": "amazon.com", "Microsoft": "microsoft.com", "Meta": "meta.com",
+    "Apple": "apple.com", "Netflix": "netflix.com", "Nvidia": "nvidia.com", "Salesforce": "salesforce.com",
+    "Adobe": "adobe.com", "Uber": "uber.com", "Airbnb": "airbnb.com", "Stripe": "stripe.com",
+    "Snowflake": "snowflake.com", "Databricks": "databricks.com", "Atlassian": "atlassian.com", "Oracle": "oracle.com",
+    "IBM": "ibm.com", "Intel": "intel.com", "Qualcomm": "qualcomm.com", "Cisco": "cisco.com", "PayPal": "paypal.com",
+    "Block": "block.xyz", "Coinbase": "coinbase.com", "DoorDash": "doordash.com", "Lyft": "lyft.com",
+    "Pinterest": "pinterest.com", "Reddit": "reddit.com", "Dropbox": "dropbox.com", "Twilio": "twilio.com",
+    "Datadog": "datadoghq.com", "MongoDB": "mongodb.com", "Palantir": "palantir.com", "ServiceNow": "servicenow.com",
+    "Workday": "workday.com", "Capital One": "capitalone.com", "JPMorgan": "jpmorganchase.com",
+    "Goldman Sachs": "goldmansachs.com", "Visa": "visa.com", "Mastercard": "mastercard.com",
+    "Walmart Labs": "walmart.com", "Roblox": "roblox.com", "Unity": "unity.com", "Zoom": "zoom.us",
+    "Okta": "okta.com", "Cloudflare": "cloudflare.com", "HashiCorp": "hashicorp.com", "Confluent": "confluent.io"
+  };
+  function domainFor(company) {
+    return COMPANY_DOMAINS[company] || (String(company).toLowerCase().replace(/[^a-z0-9]/g, "") + ".com");
+  }
+  function monogram(company) { return String(company).replace(/[^A-Za-z]/g, "").slice(0, 2); }
+  function logoUrl(company) {
+    return "https://www.google.com/s2/favicons?domain=" + domainFor(company) + "&sz=64";
+  }
+  // Inner markup for a .co-badge: monogram underneath, logo image on top.
+  // If the logo fails to load (offline, missing), the img hides and the
+  // monogram shows through — so badges always render something sensible.
+  function badgeInner(company) {
+    return '<span class="mono">' + monogram(company) + '</span>' +
+      '<img class="co-logo" src="' + logoUrl(company) + '" alt="" loading="lazy" ' +
+      'onerror="this.style.display=\'none\'">';
+  }
+  window.Brand = {
+    domainFor: domainFor,
+    monogram: monogram,
+    logoUrl: logoUrl,
+    badgeInner: badgeInner
+  };
+
   window.RezForge = {
     COMPANIES: COMPANIES,
     ROLES: Object.keys(ROLE_TEMPLATES),

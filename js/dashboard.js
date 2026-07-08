@@ -100,7 +100,7 @@
     var list = filter === "All" ? _apps : _apps.filter(function (a) { return a.status === filter; });
     var rows = list.slice(0, 60).map(function (a) {
       return '<tr>' +
-        '<td><div class="co-cell"><div class="co-badge">' + badge(a.company) + '</div>' +
+        '<td><div class="co-cell"><div class="co-badge">' + window.Brand.badgeInner(a.company) + '</div>' +
           '<div><div style="font-weight:650">' + a.company + '</div>' +
           '<div class="muted" style="font-size:.82rem">' + a.role + '</div></div></div></td>' +
         '<td class="muted">' + a.location + '</td>' +
@@ -205,7 +205,7 @@
       var cardHtml = cards.map(function (a) {
         var idx = KANBAN_COLS.indexOf(a.status);
         return '<div class="kcard">' +
-          '<div class="co-cell"><div class="co-badge">' + badge(a.company) + '</div>' +
+          '<div class="co-cell"><div class="co-badge">' + window.Brand.badgeInner(a.company) + '</div>' +
           '<div><div style="font-weight:650;font-size:.9rem">' + a.company + '</div>' +
           '<div class="muted" style="font-size:.78rem">' + a.role + '</div></div></div>' +
           '<div class="kcard-foot">' +
