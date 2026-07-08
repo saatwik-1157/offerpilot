@@ -65,12 +65,12 @@
     document.getElementById("analytics").classList.toggle("hidden", !hasApps);
     document.getElementById("kanban-panel").classList.toggle("hidden", !hasApps);
 
-    // KPIs
+    // KPIs (each a distinct colour)
     document.getElementById("kpis").innerHTML = [
-      kpi("Applications sent", m.total, "since you joined", true),
-      kpi("Responses", m.responded, m.responseRate + "% response rate"),
-      kpi("Screening calls", m.screeningCalls, "incl. interviews & offers"),
-      kpi("Offers", m.offers, m.offers ? "🎉 nice" : "keep going")
+      kpi("Applications sent", m.total, "since you joined", "k-indigo"),
+      kpi("Responses", m.responded, m.responseRate + "% response rate", "k-sky"),
+      kpi("Screening calls", m.screeningCalls, "incl. interviews & offers", "k-amber"),
+      kpi("Offers", m.offers, m.offers ? "🎉 nice" : "keep going", "k-emerald")
     ].join("");
 
     // Onboarding checklist
@@ -232,8 +232,8 @@
     });
   }
 
-  function kpi(label, n, sub, accent) {
-    return '<div class="kpi' + (accent ? ' accent' : '') + '">' +
+  function kpi(label, n, sub, variant) {
+    return '<div class="kpi' + (variant ? ' ' + variant : '') + '">' +
       '<div class="l">' + label + '</div><div class="n">' + n + '</div>' +
       '<div class="sub">' + sub + '</div></div>';
   }

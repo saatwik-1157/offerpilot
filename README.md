@@ -20,6 +20,8 @@ Built as a fast, dependency-free static web app (vanilla HTML/CSS/JS). No build 
 | **Ops console** | `admin.html` | Passcode-gated team view: client roster, run daily application cycles, update statuses, aggregate metrics |
 
 ### Feature highlights
+- **Dark mode** — persisted light/dark theme that defaults to the OS setting, applied before first paint (no flash), with a floating toggle on every page ([js/theme.js](js/theme.js)).
+- **Company logos** — real company logos on badges (favicon service) with an automatic monogram fallback.
 - **Analytics** — dashboard charts (applications/day, funnel, top companies) via a tiny dependency-free SVG engine.
 - **Interview kanban** — move applications across Screening → Interview → Offer → Closed; status persists.
 - **Notifications** — a bell + activity feed synthesized from application events, with unread badge and mark-all-read.
@@ -95,6 +97,31 @@ rezforgeEndpoint: "http://localhost:8787/api/rezforge"
 ```
 
 Leave `rezforgeEndpoint` blank to stay in demo mode. The client ([js/ai.js](js/ai.js) → `generateResumeLive`) always falls back to the mock on any network/error, so the dashboard never breaks. In production, deploy the server as a serverless function and lock `ALLOW_ORIGIN` to your domain.
+
+## Deploy to the real world
+
+The site is static, so it deploys to any static host in minutes. The included [netlify.toml](netlify.toml) sets the publish dir, a 404, and security headers.
+
+**Netlify (drag-and-drop or CLI):**
+```bash
+npm i -g netlify-cli
+netlify deploy --prod --dir .
+```
+
+**Vercel:**
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+**GitHub Pages:** push the repo and enable Pages on the default branch (root).
+
+Before going live, update the real domain in `robots.txt`, `sitemap.xml`, and the `og:*` / `canonical` tags in `index.html`.
+
+### Going fully live (optional back end)
+- **RezForge resumes:** deploy `server/rezforge-server.mjs` (e.g. as a serverless function), set `ANTHROPIC_API_KEY`, lock `ALLOW_ORIGIN` to your domain, and set `rezforgeEndpoint` in [js/config.js](js/config.js).
+- **Auth + data:** add Supabase keys and repoint `js/store.js` at it.
+- **Payments:** add Stripe Payment Links / keys (`stripeLinks`, `stripePublishableKey` in config).
 
 ## License
 
