@@ -101,6 +101,8 @@ Then set the endpoint in [js/config.js](js/config.js) and reload:
 rezforgeEndpoint: "http://localhost:8787/api/rezforge"
 ```
 
+**One-click serverless (Vercel/Netlify):** `api/rezforge.js` is a serverless function that does the same thing with no server to run. Deploy the repo to Vercel, set `ANTHROPIC_API_KEY` in the project env vars, and set `rezforgeEndpoint: "/api/rezforge"` in `js/config.js` (same origin — no CORS). GitHub Pages can't run functions, so use Vercel/Netlify when you want live AI.
+
 Leave `rezforgeEndpoint` blank to stay in demo mode. The client ([js/ai.js](js/ai.js) → `generateResumeLive`) always falls back to the mock on any network/error, so the dashboard never breaks. In production, deploy the server as a serverless function and lock `ALLOW_ORIGIN` to your domain.
 
 ## Deploy to the real world
