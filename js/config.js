@@ -53,5 +53,5 @@ window.OFFERPILOT_CONFIG = {
   // 4) REZFORGE LIVE — real Claude-powered resume tailoring.
   //    Deploy server/rezforge-server.mjs (holds the ANTHROPIC_API_KEY) and put
   //    its URL here. Blank = demo mode (deterministic mock, no network calls).
-  rezforgeEndpoint: ""   // e.g. "http://localhost:8787/api/rezforge"
+  rezforgeEndpoint: "/api/rezforge"   // e.g. "http://localhost:8787/api/rezforge"
 };
