@@ -156,6 +156,8 @@
     if (main) {
       if (!main.id) main.id = "main-content";
       main.setAttribute("tabindex", "-1");
+      // If the page has no real <main>, mark this region as the main landmark.
+      if (!document.querySelector("main")) main.setAttribute("role", "main");
       skip.href = "#" + main.id;
     } else { skip.href = "#main-content"; }
     document.body.prepend(skip);
