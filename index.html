@@ -22,6 +22,31 @@
 <meta name="twitter:title" content="OfferPilot — We apply. You interview." />
 <meta name="twitter:description" content="Done-for-you job applications for F-1/OPT students. 25–35 tailored applications a day, no salary cut." />
 <meta name="twitter:image" content="https://saatwik-1157.github.io/offerpilot/assets/og-image.png" />
+<!-- Structured data (SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "OfferPilot",
+  "serviceType": "Done-for-you job application service",
+  "url": "https://saatwik-1157.github.io/offerpilot/",
+  "description": "OfferPilot applies to 25–35 hand-matched US jobs for you every day — each with a resume tailored by the RezForge engine. Built for F-1 and OPT students.",
+  "areaServed": "US",
+  "audience": { "@type": "Audience", "audienceType": "F-1, OPT and STEM-OPT students" },
+  "provider": {
+    "@type": "Organization",
+    "name": "OfferPilot",
+    "url": "https://saatwik-1157.github.io/offerpilot/",
+    "logo": "https://saatwik-1157.github.io/offerpilot/assets/apple-touch-icon.png"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "100",
+    "priceCurrency": "USD",
+    "description": "Monthly subscription — 25–35 tailored applications per day, no salary cut."
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -86,6 +111,8 @@
     </div>
   </div>
 </header>
+
+<main id="main-content" tabindex="-1">
 
 <!-- ================= LOGO WALL ================= -->
 <section class="logowall">
@@ -292,15 +319,15 @@
     <div class="compare reveal">
       <table>
         <thead>
-          <tr><th>&nbsp;</th><th>Applying yourself</th><th>Staffing agency</th><th class="high">OfferPilot</th></tr>
+          <tr><td></td><th scope="col">Applying yourself</th><th scope="col">Staffing agency</th><th scope="col" class="high">OfferPilot</th></tr>
         </thead>
         <tbody>
-          <tr><td>Applications / month</td><td>~40 (if you're heroic)</td><td>A handful they pick</td><td class="high">Up to 1,000</td></tr>
-          <tr><td>Resume tailored per role</td><td class="no">Rarely — too slow</td><td class="no">Generic</td><td class="high"><span class="yes">Every application</span></td></tr>
-          <tr><td>Your time spent</td><td>~333 hrs/month</td><td>Low</td><td class="high"><span class="yes">Near zero</span></td></tr>
-          <tr><td>Cut of your salary</td><td class="yes">$0</td><td class="no">20–30%</td><td class="high"><span class="yes">$0</span></td></tr>
-          <tr><td>Visa-aware targeting</td><td class="no">Manual guesswork</td><td>Sometimes</td><td class="high"><span class="yes">Built in</span></td></tr>
-          <tr><td>Cost</td><td>Your sanity</td><td>Thousands, deferred</td><td class="high"><strong>$100/mo flat</strong></td></tr>
+          <tr><th scope="row">Applications / month</th><td>~40 (if you're heroic)</td><td>A handful they pick</td><td class="high">Up to 1,000</td></tr>
+          <tr><th scope="row">Resume tailored per role</th><td class="no">Rarely — too slow</td><td class="no">Generic</td><td class="high"><span class="yes">Every application</span></td></tr>
+          <tr><th scope="row">Your time spent</th><td>~333 hrs/month</td><td>Low</td><td class="high"><span class="yes">Near zero</span></td></tr>
+          <tr><th scope="row">Cut of your salary</th><td class="yes">$0</td><td class="no">20–30%</td><td class="high"><span class="yes">$0</span></td></tr>
+          <tr><th scope="row">Visa-aware targeting</th><td class="no">Manual guesswork</td><td>Sometimes</td><td class="high"><span class="yes">Built in</span></td></tr>
+          <tr><th scope="row">Cost</th><td>Your sanity</td><td>Thousands, deferred</td><td class="high"><strong>$100/mo flat</strong></td></tr>
         </tbody>
       </table>
     </div>
@@ -317,9 +344,9 @@
     </div>
 
     <div class="center reveal">
-      <div class="plan-toggle" role="tablist">
-        <button id="bill-monthly" class="active">Monthly</button>
-        <button id="bill-annual">Annual <span class="save">· 2 months free</span></button>
+      <div class="plan-toggle" role="group" aria-label="Billing period">
+        <button id="bill-monthly" class="active" aria-pressed="true">Monthly</button>
+        <button id="bill-annual" aria-pressed="false">Annual <span class="save">· 2 months free</span></button>
       </div>
     </div>
 
@@ -425,9 +452,9 @@
         <a href="signup.html" class="btn btn-primary btn-lg" style="margin-top:22px">Get your referral link →</a>
       </div>
       <div class="refer-steps">
-        <div class="refer-step"><div class="rn">1</div><div><h4>Share your link</h4><p>Every member gets a unique referral link in their dashboard.</p></div></div>
-        <div class="refer-step"><div class="rn">2</div><div><h4>They save 50%</h4><p>Your friend joins at half price for their first month.</p></div></div>
-        <div class="refer-step"><div class="rn">3</div><div><h4>You get a free month</h4><p>A full month is credited to your account the moment they subscribe.</p></div></div>
+        <div class="refer-step"><div class="rn">1</div><div><h3>Share your link</h3><p>Every member gets a unique referral link in their dashboard.</p></div></div>
+        <div class="refer-step"><div class="rn">2</div><div><h3>They save 50%</h3><p>Your friend joins at half price for their first month.</p></div></div>
+        <div class="refer-step"><div class="rn">3</div><div><h3>You get a free month</h3><p>A full month is credited to your account the moment they subscribe.</p></div></div>
       </div>
     </div>
   </div>
@@ -443,6 +470,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <script src="js/config.js"></script>
 <script src="js/main.js"></script>
