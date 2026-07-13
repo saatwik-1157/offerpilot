@@ -382,7 +382,7 @@ body.nav-open .nav-toggle span::after { transform: rotate(-45deg); top: 0; }
 .footer { background: var(--dark-bg); color: #9AA2C4; padding: 62px 0 30px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 40px; }
 .footer .brand { color: #fff; }
-.footer h3 { color: #fff; font-size: .82rem; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 14px; }
+.footer h2 { color: #fff; font-size: .82rem; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 14px; }
 .footer a { color: #9AA2C4; display: block; padding: 5px 0; transition: color .2s; }
 .footer a:hover { color: #fff; }
 .footer .col p { color: #8A93B6; font-size: .92rem; margin-top: 12px; }
