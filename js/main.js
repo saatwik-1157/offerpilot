@@ -72,19 +72,19 @@
             '<p>' + (C.tagline || "We apply. You interview.") +
             ' Done-for-you job applications for F-1 / OPT students racing the clock.</p>' +
           '</div>' +
-          '<div class="col"><h3>Product</h3>' +
+          '<div class="col"><h2>Product</h2>' +
             '<a href="index.html#how">How it works</a>' +
             '<a href="index.html#results">Results</a>' +
             '<a href="index.html#pricing">Pricing</a>' +
             '<a href="dashboard.html">Client dashboard</a>' +
           '</div>' +
-          '<div class="col"><h3>Company</h3>' +
+          '<div class="col"><h2>Company</h2>' +
             '<a href="index.html#faq">FAQ</a>' +
             '<a href="signup.html">Get started</a>' +
             '<a href="admin.html">Team login</a>' +
             '<a href="mailto:' + (C.email || "hello@offerpilot.example") + '">Contact</a>' +
           '</div>' +
-          '<div class="col"><h3>Legal</h3>' +
+          '<div class="col"><h2>Legal</h2>' +
             '<a href="legal.html#refund">Refund policy</a>' +
             '<a href="legal.html#privacy">Privacy</a>' +
             '<a href="legal.html#terms">Terms</a>' +
