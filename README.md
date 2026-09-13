@@ -8,6 +8,8 @@ A done-for-you **job-application platform** for international students on **F-1 
 
 Built as a fast, dependency-free static web app (vanilla HTML/CSS/JS). No build step. Runs on `file://` or any static host.
 
+**Built by Saatwik Sairaam Vasamsetti** · [github.com/saatwik-1157](https://github.com/saatwik-1157)
+
 > ⚠️ **Demo / portfolio project.** This is a functional prototype. All data lives in the browser (`localStorage`); the "AI" match + resume engine is a deterministic mock. No real applications are submitted and no employer is affiliated.
 
 ---
