@@ -3,7 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<base href="/offerpilot/">
+<script>
+// This page is served for ANY missing path, at any depth, so its relative
+// links ("css/styles.css") would otherwise resolve against that missing path
+// rather than the site root. A <base> fixes that -- but the right value
+// differs per host: GitHub Pages publishes this repo under /offerpilot/,
+// while netlify.toml publishes it at the root. Hard-coding either one breaks
+// the other, so derive it from the URL we were actually served at.
+//
+// Must run before the <link>/<script> tags below: only the first <base> in a
+// document counts, and it only affects URLs resolved after it is inserted.
+(function () {
+  var el = document.createElement('base');
+  el.href = location.pathname.indexOf('/offerpilot/') === 0 ? '/offerpilot/' : '/';
+  document.head.appendChild(el);
+})();
+</script>
 <title>Page not found — OfferPilot</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
