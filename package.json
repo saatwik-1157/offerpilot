@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "OfferPilot — static site + optional RezForge serverless function (api/rezforge.js) for real Claude resume tailoring.",
+  "description": "OfferPilot — static site (apps/web) + optional RezForge backend (apps/api) for real Claude resume tailoring.",
+  "scripts": {
+    "web": "node scripts/serve-web.mjs",
+    "api": "node apps/api/server/rezforge-server.mjs",
+    "api:env": "node --env-file=.env apps/api/server/rezforge-server.mjs",
+    "check": "node scripts/check-syntax.mjs"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.0"
   }

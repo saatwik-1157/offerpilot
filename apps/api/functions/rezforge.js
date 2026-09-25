@@ -1,10 +1,11 @@
 /* ============================================================
-   RezForge™ — serverless function (Vercel / Netlify Node runtime)
+   RezForge™ — serverless function (Vercel Node runtime, (req, res) signature)
    Real Claude-powered resume tailoring. The API key stays server-side
    as an environment variable — never in the browser.
 
-   Deploy the whole repo to Vercel (this file auto-becomes /api/rezforge),
-   set ANTHROPIC_API_KEY in the project's env vars, then in js/config.js set:
+   Deploy the whole repo to Vercel: the root shim api/rezforge.js re-exports
+   this handler, so it is served at /api/rezforge. Set ANTHROPIC_API_KEY in the
+   project's env vars, then in apps/web/js/config.js set:
      rezforgeEndpoint: "/api/rezforge"   // same origin, no CORS needed
 
    POST body: { profile: {name, skills[], targetRoles[], visa}, job: {company, role} }
