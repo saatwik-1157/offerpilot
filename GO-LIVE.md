@@ -6,7 +6,7 @@ All settings live in [`apps/web/js/config.js`](apps/web/js/config.js) unless not
 
 | # | Feature | You need | Paste into |
 |---|---|---|---|
-| 1 | Real contact details | your email + phone | `email`, `phone`, `contactHours` |
+| 1 | Real contact details ✅ done | your email + phone | `email`, `phone`, `contactHours` |
 | 2 | Contact form and chat messages reach your inbox | free key from [web3forms.com](https://web3forms.com) | `formsKey` |
 | 3 | Signups and messages saved online | a free [Supabase](https://supabase.com) project | `supabaseUrl`, `supabaseAnonKey` |
 | 4 | Real payments | 3 Stripe Payment Links | `stripePublishableKey`, `stripeLinks` |
@@ -14,8 +14,7 @@ All settings live in [`apps/web/js/config.js`](apps/web/js/config.js) unless not
 | 6 | Permanent public link | GitHub Pages, Netlify or Vercel | see below |
 
 ## 1. Contact details
-Replace the placeholders. `.example` addresses and 555 numbers can't be reached.
-The footer, contact section and help chat all read these, so this is the only place to change them.
+Already set to the real email and phone. To change them later, edit these three values. The footer, contact section and help chat all read these, so this is the only place to change them.
 
 ## 2. Contact form and chat delivery (Web3Forms)
 1. On web3forms.com, enter the email that should receive messages. They email you an access key.

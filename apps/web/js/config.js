@@ -12,9 +12,8 @@ window.OFFERPILOT_CONFIG = {
   year: 2026,
 
   // Contact — shown in the footer, contact section and help chat.
-  // REPLACE these placeholders with your real details (.example / 555 don't work).
-  email: "hello@offerpilot.example",
-  phone: "+1 (555) 010-2025",
+  email: "saathwik.13@gmail.com",
+  phone: "+91 9989057655",
   contactHours: "Mon–Fri, 9am–6pm ET",
 
   // Pricing
