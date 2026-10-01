@@ -52,11 +52,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <script src="js/theme.js"></script>
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/fx.css" />
 </head>
 <body>
 
 <!-- ================= HERO ================= -->
 <header class="hero">
+  <canvas class="hero-stars" data-fx="stars" aria-hidden="true"></canvas>
   <div class="container">
     <div class="hero-grid">
       <div>
@@ -78,8 +80,14 @@
         </div>
       </div>
 
-      <!-- Live application card -->
-      <div class="hero-card" aria-hidden="true">
+      <!-- 3D globe + live application card -->
+      <div class="hero-visual" aria-hidden="true">
+      <canvas class="hero-globe" data-fx="globe"></canvas>
+      <span class="globe-hint">↔ drag to spin</span>
+      <div class="float-chip c1"><span class="dot"></span>Resume tailored · Stripe</div>
+      <div class="float-chip c2"><span class="dot"></span>+3 interviews this week</div>
+      <div class="float-chip c3"><span class="dot"></span>Sponsor-friendly match</div>
+      <div class="hero-card">
         <h4>Today's applications <span class="live-dot" title="live"></span></h4>
         <div class="app-row">
           <div class="app-logo">G<img class="co-logo" src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt="" onerror="this.style.display='none'"></div>
@@ -108,6 +116,7 @@
         </div>
         <div style="text-align:center; margin-top:14px; color:#8A93B6; font-size:.82rem;">+ 27 more submitted by your specialist today</div>
       </div>
+      </div>
     </div>
   </div>
 </header>
@@ -118,10 +127,15 @@
 <section class="logowall">
   <div class="container">
     <p>Our members have interviewed at 160+ companies, including</p>
-    <div class="logos">
-      <span>Google</span><span>Amazon</span><span>Microsoft</span><span>Meta</span>
-      <span>Apple</span><span>Nvidia</span><span>Stripe</span><span>Salesforce</span>
-      <span>Adobe</span><span>Uber</span><span>Snowflake</span><span>Databricks</span>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>Google</span><span>Amazon</span><span>Microsoft</span><span>Meta</span>
+        <span>Apple</span><span>Nvidia</span><span>Stripe</span><span>Salesforce</span>
+        <span>Adobe</span><span>Uber</span><span>Snowflake</span><span>Databricks</span>
+        <span aria-hidden="true">Google</span><span aria-hidden="true">Amazon</span><span aria-hidden="true">Microsoft</span><span aria-hidden="true">Meta</span>
+        <span aria-hidden="true">Apple</span><span aria-hidden="true">Nvidia</span><span aria-hidden="true">Stripe</span><span aria-hidden="true">Salesforce</span>
+        <span aria-hidden="true">Adobe</span><span aria-hidden="true">Uber</span><span aria-hidden="true">Snowflake</span><span aria-hidden="true">Databricks</span>
+      </div>
     </div>
   </div>
 </section>
@@ -135,21 +149,21 @@
       <p class="lead">You need to apply to <em>far more</em> jobs than a citizen to land the same interview — and you're doing it after class, during OPT, with a deadline over your head.</p>
     </div>
     <div class="cards">
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
         </div>
         <h3>The OPT clock</h3>
         <p>90 days of unemployment and you're out of status. Every week spent copy-pasting the same form is a week you don't get back.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
         </div>
         <h3>The sponsorship filter</h3>
         <p>Half your applications are dead on arrival over one dropdown. Winning means casting a much wider net — hundreds of roles, not dozens.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8l7-5 7 5"/></svg>
         </div>
@@ -169,36 +183,91 @@
       <p class="lead">A dedicated specialist plus our <strong>RezForge™</strong> engine handle everything between "I need a job" and "I have an interview."</p>
     </div>
     <div class="cards">
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico green"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></div>
         <h3>25–35 applications daily</h3>
         <p>Every day we hand-pick qualified openings matched to your profile and apply on your behalf — up to 1,000 a month.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico sky"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l2 2 4-4"/></svg></div>
         <h3>A resume for every role</h3>
         <p>RezForge™ rebuilds your resume from scratch for each job — mirroring the keywords and skills that role screens for. Built with input from 60+ HR pros.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico violet"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
         <h3>A dedicated specialist</h3>
         <p>A real person owns your search — plus a kickoff call to lock in target roles, locations, and strategy before day one.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico amber"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
         <h3>Live tracking dashboard</h3>
         <p>See every application, company, role, and status update in real time. No black box — you watch the pipeline fill up.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico pink"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <h3>Visa-aware targeting</h3>
         <p>We prioritize employers with a track record of sponsorship and cap-exempt paths — so your applications land where they can convert.</p>
       </div>
-      <div class="card reveal">
+      <div class="card reveal" data-tilt="10">
         <div class="ico"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <h3>No cut of your salary</h3>
         <p>Staffing agencies take 20–30% of what you earn. We charge one flat monthly fee. Your offer is entirely yours.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURED OFFERS (promo carousel) ================= -->
+<section class="section-sm" id="offers" aria-roledescription="carousel" aria-label="Featured offers">
+  <div class="container">
+    <div class="section-head reveal" style="margin-bottom:34px">
+      <span class="eyebrow">Featured offers</span>
+      <h2 class="h-xl">Deals for this intake season</h2>
+    </div>
+    <div class="promo-carousel reveal" data-promo-carousel>
+      <button type="button" class="promo-nav promo-prev" aria-label="Previous offer">‹</button>
+      <div class="promo-viewport">
+        <div class="promo-track">
+          <div class="promo-slide p1" role="group" aria-roledescription="slide" aria-label="1 of 4">
+            <div>
+              <span class="ad-label">Limited time</span>
+              <h3>50% off your first month</h3>
+              <p>Start the Pro plan for $75 instead of $150. Use code <strong>LAUNCH50</strong> at checkout — 25–35 tailored applications a day from week one.</p>
+              <a href="signup.html?plan=Pro&amp;promo=LAUNCH50" class="btn btn-white btn-lg">Claim 50% off →</a>
+            </div>
+            <div class="promo-art"><div class="promo-big">50%<br>OFF</div></div>
+          </div>
+          <div class="promo-slide p2" role="group" aria-roledescription="slide" aria-label="2 of 4">
+            <div>
+              <span class="ad-label">Free tool</span>
+              <h3>How many OPT days do you have left?</h3>
+              <p>The Runway calculator counts your unemployment days, flags your STEM extension window and shows how many applications you need to land in time.</p>
+              <a href="runway.html" class="btn btn-white btn-lg">Open the Runway tool →</a>
+            </div>
+            <div class="promo-art"><div class="promo-cube"><span>🗓️</span><span>⏳</span><span>📈</span><span>✅</span><span>🎓</span><span>🛂</span></div></div>
+          </div>
+          <div class="promo-slide p3" role="group" aria-roledescription="slide" aria-label="3 of 4">
+            <div>
+              <span class="ad-label">Elite plan</span>
+              <h3>Two mock interviews every month</h3>
+              <p>Practise with engineers who hire for big tech, plus LinkedIn optimization and the priority application queue.</p>
+              <a href="signup.html?plan=Elite" class="btn btn-white btn-lg">Go Elite →</a>
+            </div>
+            <div class="promo-art"><div class="promo-cube"><span>🎤</span><span>💼</span><span>⭐</span><span>🚀</span><span>🧠</span><span>🏆</span></div></div>
+          </div>
+          <div class="promo-slide p4" role="group" aria-roledescription="slide" aria-label="4 of 4">
+            <div>
+              <span class="ad-label">Referral</span>
+              <h3>Give 50%, get a free month</h3>
+              <p>Every member gets a referral link. Friends save half on month one, and you get a month on us for each one. No cap.</p>
+              <a href="signup.html" class="btn btn-white btn-lg">Get my referral link →</a>
+            </div>
+            <div class="promo-art"><div class="promo-cube"><span>🎁</span><span>🤝</span><span>💸</span><span>🎉</span><span>📨</span><span>❤️</span></div></div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="promo-nav promo-next" aria-label="Next offer">›</button>
+      <div class="promo-dots"></div>
     </div>
   </div>
 </section>
@@ -212,11 +281,79 @@
       <p class="lead">Four steps between signing up and watching applications roll out in your name.</p>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="num">1</div><h3>Subscribe & upload</h3><p>Join and share your master resume, target roles, and locations. Takes 10 minutes.</p></div>
-      <div class="step reveal"><div class="num">2</div><h3>Profile review</h3><p>Our team reviews your profile and suggests tweaks to maximize callbacks before we launch.</p></div>
-      <div class="step reveal"><div class="num">3</div><h3>Onboarding call</h3><p>A 30-minute strategy call locks in your search — roles, seniority, geography, dealbreakers.</p></div>
-      <div class="step reveal"><div class="num">4</div><h3>We start applying</h3><p>Within 3–7 business days, 25–35 tailored applications go out daily. You track it all live.</p></div>
+      <div class="step reveal" data-tilt="10"><div class="num">1</div><h3>Subscribe & upload</h3><p>Join and share your master resume, target roles, and locations. Takes 10 minutes.</p></div>
+      <div class="step reveal" data-tilt="10"><div class="num">2</div><h3>Profile review</h3><p>Our team reviews your profile and suggests tweaks to maximize callbacks before we launch.</p></div>
+      <div class="step reveal" data-tilt="10"><div class="num">3</div><h3>Onboarding call</h3><p>A 30-minute strategy call locks in your search — roles, seniority, geography, dealbreakers.</p></div>
+      <div class="step reveal" data-tilt="10"><div class="num">4</div><h3>We start applying</h3><p>Within 3–7 business days, 25–35 tailored applications go out daily. You track it all live.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- ================= REZFORGE 3D ================= -->
+<section class="section section-alt" id="rezforge">
+  <div class="container rez-split">
+    <div class="reveal">
+      <span class="eyebrow is-green">RezForge™ engine</span>
+      <h2 class="h-xl" style="margin-top:14px">One master resume in.<br>A tailored one for every job out.</h2>
+      <p class="lead" style="margin-top:14px">Hover the stack. Each version is rebuilt around the keywords that one posting screens for, then scored before it ships.</p>
+      <ul>
+        <li><span class="tick">✓</span><span><b>Keyword mirroring</b>: the skills a posting asks for move to the top, worded the way the ATS expects.</span></li>
+        <li><span class="tick">✓</span><span><b>Match score</b>: every resume is scored against its job, and anything weak is reworked before it goes out.</span></li>
+        <li><span class="tick">✓</span><span><b>Human review</b>: your specialist signs off before anything goes out under your name.</span></li>
+      </ul>
+    </div>
+    <div class="rez-stage reveal" aria-hidden="true">
+      <div class="rez-stack">
+        <div class="rez-sheet s3">
+          <div class="rh"><span class="rn">Aarav Mehta</span><span class="rt">Data Eng · Snowflake</span></div>
+          <div class="ln w80"></div><div class="ln"></div><div class="ln w60"></div>
+          <div class="kw"><i>Spark</i><i>dbt</i><i>Airflow</i><i>SQL</i></div>
+          <div class="ln"></div><div class="ln w40"></div>
+          <div class="score">89%<span class="bar"><b style="width:89%"></b></span></div>
+        </div>
+        <div class="rez-sheet s1">
+          <div class="rh"><span class="rn">Aarav Mehta</span><span class="rt">SWE II · Google</span></div>
+          <div class="ln w80"></div><div class="ln"></div><div class="ln w60"></div>
+          <div class="kw"><i>Python</i><i>Distributed</i><i>K8s</i><i>C++</i></div>
+          <div class="ln"></div><div class="ln w40"></div>
+          <div class="score">96%<span class="bar"><b style="width:96%"></b></span></div>
+        </div>
+        <div class="rez-sheet s2">
+          <div class="rh"><span class="rn">Aarav Mehta</span><span class="rt">Backend · Stripe</span></div>
+          <div class="ln w80"></div><div class="ln"></div><div class="ln w60"></div>
+          <div class="kw"><i>Go</i><i>Payments</i><i>gRPC</i><i>Postgres</i></div>
+          <div class="ln"></div><div class="ln w40"></div>
+          <div class="score">91%<span class="bar"><b style="width:91%"></b></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIVE DASHBOARD DEMO ================= -->
+<section class="section" id="demo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Live preview</span>
+      <h2 class="h-xl">Watch your pipeline fill up</h2>
+      <p class="lead">This is the member dashboard, running a simulated day. New applications land, recruiters reply and statuses move along the funnel.</p>
+    </div>
+    <div class="demo-stage reveal">
+      <div class="demo-window" data-demo-dashboard>
+        <div class="demo-bar"><span></span><span></span><span></span><em>offerpilot / dashboard</em></div>
+        <div class="demo-kpis">
+          <div><small>Applications</small><b data-k="apps">0</b></div>
+          <div><small>Responses</small><b data-k="resp">0</b></div>
+          <div><small>Screening calls</small><b data-k="calls">0</b></div>
+          <div><small>Offers</small><b data-k="offers">0</b></div>
+        </div>
+        <div class="demo-cols">
+          <div class="demo-chart" aria-hidden="true"></div>
+          <ul class="demo-feed" aria-live="off"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="center" style="margin-top:30px"><a href="dashboard.html" class="btn btn-outline btn-lg">Open the full demo dashboard →</a></div>
   </div>
 </section>
 
@@ -226,7 +363,7 @@
     <div class="section-head reveal">
       <span class="eyebrow is-green">Real results</span>
       <h2 class="h-xl" style="color:#fff">The numbers members see</h2>
-      <p class="lead" style="color:#AEB6D0">Measured across active OfferPilot subscribers. Screening calls, not vanity metrics.</p>
+      <p class="lead" style="color:#AEB6D0">Screening calls, not vanity metrics. Demo figures shown until live member data is connected.</p>
     </div>
     <div class="stats">
       <div class="stat reveal"><div class="n">82%</div><div class="l">receive screening calls within 2–3 months</div></div>
@@ -242,23 +379,23 @@
     <div class="section-head reveal">
       <span class="eyebrow is-green">Straight from the inbox</span>
       <h2 class="h-xl">Screening calls, in members' own inboxes</h2>
-      <p class="lead">A sample of the recruiter replies our members wake up to. Names redacted for privacy.</p>
+      <p class="lead">The kind of recruiter replies members wake up to. Illustrative examples; company names withheld.</p>
     </div>
     <div class="proof">
-      <div class="inbox reveal">
-        <div class="from"><div class="avatar">A</div><div><div class="who">Recruiting · Amazon</div><div class="addr">no-reply@amazon.jobs</div></div></div>
+      <div class="inbox reveal" data-tilt="8">
+        <div class="from"><div class="avatar">E</div><div><div class="who">Recruiting · E-commerce company</div><div class="addr">Fortune 100 · Seattle, WA</div></div></div>
         <div class="subj">Next steps — SDE Early Career</div>
         <div class="snippet">Hi, thanks for applying! We'd love to schedule a 30-minute screening call this week. Are you available Thursday…</div>
         <span class="tag">✓ Screening call booked</span>
       </div>
-      <div class="inbox reveal">
-        <div class="from"><div class="avatar">S</div><div><div class="who">Talent · Stripe</div><div class="addr">talent@stripe.com</div></div></div>
-        <div class="subj">Your application to Stripe</div>
+      <div class="inbox reveal" data-tilt="8">
+        <div class="from"><div class="avatar">F</div><div><div class="who">Talent · Fintech company</div><div class="addr">Series H · Remote (US)</div></div></div>
+        <div class="subj">Your application</div>
         <div class="snippet">Your background stood out to our team. Could you share your availability for an intro call with the recruiter…</div>
         <span class="tag">✓ Recruiter reply</span>
       </div>
-      <div class="inbox reveal">
-        <div class="from"><div class="avatar">N</div><div><div class="who">University Recruiting · Nvidia</div><div class="addr">careers@nvidia.com</div></div></div>
+      <div class="inbox reveal" data-tilt="8">
+        <div class="from"><div class="avatar">C</div><div><div class="who">University Recruiting · Chipmaker</div><div class="addr">Big Tech · Santa Clara, CA</div></div></div>
         <div class="subj">Interview invitation</div>
         <div class="snippet">We reviewed your profile and would like to move you to a technical interview. Please pick a slot below…</div>
         <span class="tag">✓ Interview invite</span>
@@ -273,22 +410,22 @@
     <div class="section-head reveal">
       <span class="eyebrow is-green">Member stories</span>
       <h2 class="h-xl">From "running out of time" to signed</h2>
-      <p class="lead">Real outcomes from students who handed us the grind.</p>
+      <p class="lead">Outcomes like these are what we build for. Sample stories shown while this site is in demo.</p>
     </div>
     <div class="tgrid">
-      <div class="tcard reveal">
+      <div class="tcard reveal" data-tilt="6">
         <div class="stars">★★★★★</div>
         <p>"I had 4 months of OPT left and 6 interviews total after applying myself for a year. OfferPilot got me 3 screening calls in the first three weeks. I signed with a fintech before my clock ran out."</p>
         <div class="who"><div class="av">RK</div><div><div class="nm">Rahul K.</div><div class="rl">MS CS · now SDE at a fintech</div></div></div>
         <span class="outcome">✓ Hired in 9 weeks</span>
       </div>
-      <div class="tcard reveal">
+      <div class="tcard reveal" data-tilt="6">
         <div class="stars">★★★★★</div>
         <p>"The tailored resumes are the difference. Same background, but suddenly recruiters were replying. I could finally sleep instead of filling out the same form 30 times a night."</p>
         <div class="who"><div class="av">MN</div><div><div class="nm">Mei N.</div><div class="rl">MS Analytics · Data Analyst</div></div></div>
         <span class="outcome">✓ 3 offers</span>
       </div>
-      <div class="tcard reveal">
+      <div class="tcard reveal" data-tilt="6">
         <div class="stars">★★★★★</div>
         <p>"Worth every dollar. A staffing agency wanted 25% of my salary for two years. OfferPilot charged one flat fee and I kept 100% of my offer. No-brainer."</p>
         <div class="who"><div class="av">DA</div><div><div class="nm">Diego A.</div><div class="rl">STEM-OPT · DevOps Engineer</div></div></div>
@@ -303,7 +440,7 @@
   <div class="container">
     <div class="counter-band reveal">
       <div class="num" id="live-counter" data-target="128740">0</div>
-      <div class="cap">applications submitted for our members this month — and climbing by the minute</div>
+      <div class="cap">applications submitted for our members this month — and climbing by the minute <span style="opacity:.7">(demo figure)</span></div>
     </div>
   </div>
 </section>
@@ -352,7 +489,7 @@
 
     <div class="tiers reveal">
       <!-- Starter -->
-      <div class="tier">
+      <div class="tier" data-tilt="6">
         <h3>Starter</h3>
         <div class="tprice"><span class="amt">$<span class="tval" data-m="100" data-a="83">100</span></span><span class="unit tunit">/ month</span></div>
         <p class="tdesc">Keep a steady pipeline going while you focus on interviews.</p>
@@ -366,12 +503,12 @@
       </div>
 
       <!-- Pro (popular) -->
-      <div class="tier pop">
+      <div class="tier pop" data-tilt="6">
         <h3>Pro</h3>
         <div class="tprice"><span class="amt">$<span class="tval" data-m="150" data-a="125">150</span></span><span class="unit tunit">/ month</span></div>
         <p class="tdesc">Our flagship. Full volume plus a human owning your search.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> <strong>25–35 applications / day</strong> (up to 1,000/mo)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> <span><strong>25–35 applications / day</strong> (up to 1,000/mo)</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Dedicated specialist + onboarding call</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Visa-aware employer targeting</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Everything in Starter</li>
@@ -380,7 +517,7 @@
       </div>
 
       <!-- Elite -->
-      <div class="tier">
+      <div class="tier" data-tilt="6">
         <h3>Elite</h3>
         <div class="tprice"><span class="amt">$<span class="tval" data-m="200" data-a="167">200</span></span><span class="unit tunit">/ month</span></div>
         <p class="tdesc">Maximum firepower for a fast, high-stakes search.</p>
@@ -394,6 +531,34 @@
       </div>
     </div>
     <p class="price-fine reveal" style="margin-top:24px">Not a fit? If we can't serve your profile, you get a full refund. No cut of your salary on any plan.</p>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section section-alt" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">About us</span>
+      <h2 class="h-xl">Built by people who've lived the OPT clock</h2>
+      <p class="lead">OfferPilot started as a way to beat the volume problem international students face. Our job is the grind; yours is the interview.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal" data-tilt="10">
+        <div class="ico violet"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+        <h3>Our mission</h3>
+        <p>Give every F-1 and OPT student the application volume they need, without handing over a share of their salary.</p>
+      </div>
+      <div class="card reveal" data-tilt="10">
+        <div class="ico green"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Specialists, not bots</h3>
+        <p>Every member has a named specialist who owns their search, reviews each resume and is a message away.</p>
+      </div>
+      <div class="card reveal" data-tilt="10">
+        <div class="ico sky"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Your data stays yours</h3>
+        <p>Applications go out under your name only. We never sell your data, and you can export or delete it at any time.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -424,15 +589,15 @@
       <p class="lead">Straight-talk guides on OPT, sponsorship, and landing offers on a visa — free, no signup.</p>
     </div>
     <div class="res-grid">
-      <a class="res-card reveal" href="resources.html">
+      <a class="res-card reveal" data-tilt="8" href="resources.html">
         <div class="thumb">🗓️</div>
         <div class="rbody"><div class="tag">OPT · Deadlines</div><h3>The F-1 → OPT → H-1B timeline, decoded</h3><p>Every date that matters, the 90-day unemployment rule, and how to plan your search backward from your clock.</p><span class="read">Read guide →</span></div>
       </a>
-      <a class="res-card reveal" href="resources.html">
+      <a class="res-card reveal" data-tilt="8" href="resources.html">
         <div class="thumb g2">🏢</div>
         <div class="rbody"><div class="tag">Sponsorship</div><h3>How to spot employers that actually sponsor</h3><p>The signals in a job post, the companies with a track record, and the cap-exempt paths most students miss.</p><span class="read">Read guide →</span></div>
       </a>
-      <a class="res-card reveal" href="resources.html">
+      <a class="res-card reveal" data-tilt="8" href="resources.html">
         <div class="thumb g3">📄</div>
         <div class="rbody"><div class="tag">Resumes</div><h3>Why your resume dies at the ATS (and the fix)</h3><p>What keyword-matching really rewards, and how RezForge™ rebuilds a resume for each role to get past the filter.</p><span class="read">Read guide →</span></div>
       </a>
@@ -460,13 +625,47 @@
   </div>
 </section>
 
+<!-- ================= CONTACT ================= -->
+<section class="section section-alt" id="contact">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 class="h-xl" style="margin:14px 0 10px">Talk to a human</h2>
+      <p class="lead">Questions about your profile, visa timeline or plans? Send a message and the team replies within one business day.</p>
+      <div class="contact-cards">
+        <a class="contact-card" data-tilt="8" data-email-link href="mailto:hello@offerpilot.example">
+          <span class="ci">✉️</span><span><small>Email</small><b data-email>hello@offerpilot.example</b></span>
+        </a>
+        <a class="contact-card" data-tilt="8" data-phone-link href="tel:+15550102025">
+          <span class="ci">📞</span><span><small>Phone</small><b data-phone>+1 (555) 010-2025</b></span>
+        </a>
+        <button type="button" class="contact-card" data-tilt="8" id="contact-chat">
+          <span class="ci">💬</span><span><small>Live chat</small><b>Ask the assistant</b></span>
+        </button>
+      </div>
+      <p class="hint" style="margin-top:14px">Hours: <span id="contact-hours">Mon–Fri, 9am–6pm ET</span></p>
+    </div>
+    <form class="panel contact-form reveal" id="contact-form" novalidate>
+      <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" required autocomplete="name" placeholder="Your name" /></div>
+      <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" required autocomplete="email" placeholder="you@student.edu" /></div>
+      <div class="field"><label for="c-topic">Topic</label>
+        <select id="c-topic" name="topic"><option>Plans &amp; pricing</option><option>My visa timeline</option><option>Billing or refund</option><option>Partnerships</option><option>Something else</option></select>
+      </div>
+      <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" rows="4" required placeholder="How can we help?"></textarea></div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">Send message →</button>
+      <p class="hint center" id="contact-status" aria-live="polite" style="margin-top:10px"></p>
+    </form>
+  </div>
+</section>
+
 <!-- ================= CTA ================= -->
 <section class="section-sm">
   <div class="container">
     <div class="cta-band reveal">
+      <span class="shape3d s1" aria-hidden="true"></span><span class="shape3d s2" aria-hidden="true"></span><span class="shape3d s3" aria-hidden="true"></span>
       <h2 class="h-xl">Your OPT clock doesn't stop. Neither do we.</h2>
       <p>Start today and your first batch of applications goes out this week. Under a dollar an hour to get your life back.</p>
-      <a href="signup.html" class="btn btn-white btn-lg">Start applying — $<span data-price>100</span>/mo</a>
+      <a href="signup.html" class="btn btn-white btn-lg"><span>Start applying — from $<span data-price>100</span>/mo</span></a>
     </div>
   </div>
 </section>
@@ -474,15 +673,28 @@
 </main>
 
 <script src="js/config.js"></script>
+<script src="js/integrations.js"></script>
+<script src="js/cloud.js"></script>
 <script src="js/main.js"></script>
+<script src="js/promo.js"></script>
+<script src="js/fx3d.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/home.js"></script>
 <script>
 // Pricing monthly/annual toggle
 (function () {
   var m = document.getElementById("bill-monthly"), a = document.getElementById("bill-annual");
   function setMode(annual) {
     m.classList.toggle("active", !annual); a.classList.toggle("active", annual);
+    m.setAttribute("aria-pressed", String(!annual)); a.setAttribute("aria-pressed", String(annual));
     document.querySelectorAll(".tval").forEach(function (el) {
       el.textContent = annual ? el.dataset.a : el.dataset.m;
+      var amt = el.closest(".amt");
+      amt.classList.remove("flip"); void amt.offsetWidth; amt.classList.add("flip");
+    });
+    // Carry the chosen billing period through to signup.
+    document.querySelectorAll('.tier a[href^="signup.html"]').forEach(function (link) {
+      link.href = link.getAttribute("href").replace(/&billing=\w+/, "") + (annual ? "&billing=annual" : "");
     });
     document.querySelectorAll(".tunit").forEach(function (el) {
       el.textContent = annual ? "/ mo, billed yearly" : "/ month";

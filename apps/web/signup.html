@@ -14,6 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <script src="js/theme.js"></script>
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/fx.css" />
 </head>
 <body>
 <section class="section">
@@ -78,9 +79,32 @@
           <p class="hint">RezForge™ uses these to tailor each resume and score matches.</p>
         </div>
 
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px">
+        <fieldset class="plan-pick" id="plan-pick">
+          <legend>Choose your plan</legend>
+          <!-- options rendered from config.js plans -->
+        </fieldset>
+
+        <div class="bill-row">
+          <div class="plan-toggle" role="group" aria-label="Billing period" style="margin:0">
+            <button type="button" id="bill-monthly" class="active" aria-pressed="true">Monthly</button>
+            <button type="button" id="bill-annual" aria-pressed="false">Annual <span class="save">· 2 months free</span></button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="promo">Promo or referral code</label>
+          <div class="promo-row">
+            <input id="promo" name="promo" placeholder="LAUNCH50" autocomplete="off" />
+            <button type="button" id="promo-apply" class="btn btn-outline">Apply</button>
+          </div>
+          <p class="promo-msg" id="promo-msg" aria-live="polite"></p>
+        </div>
+
+        <div class="order-sum" id="order-sum" aria-live="polite"></div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px">
           <div>
-            <div style="font-weight:800;font-size:1.3rem;color:var(--ink)">$<span data-price>100</span><span class="muted" style="font-weight:600;font-size:1rem">/mo</span></div>
+            <div style="font-weight:800;font-size:1.3rem;color:var(--ink)">$<span id="due-now">150</span><span class="muted" style="font-weight:600;font-size:1rem"> due today</span></div>
             <div class="hint" style="margin:0">Cancel anytime · refund for unused days</div>
           </div>
           <button type="submit" class="btn btn-primary btn-lg">Create my account →</button>
@@ -95,24 +119,114 @@
 <script src="js/ai.js"></script>
 <script src="js/store.js"></script>
 <script src="js/integrations.js"></script>
+<script src="js/cloud.js"></script>
 <script src="js/main.js"></script>
+<script src="js/promo.js"></script>
+<script src="js/chat.js"></script>
 <script>
-// Referral link support (?ref=CODE) + optional ?plan= from pricing tiers
+// Referral link support (?ref=CODE), ?plan= / ?billing= from the pricing
+// tiers, and ?promo= from the offer ads. Everything recalculates live.
 var _params = new URLSearchParams(location.search);
 var _ref = _params.get("ref");
+var C = window.OFFERPILOT_CONFIG || {};
+var PLANS = C.plans || { Pro: { monthly: C.price || 100, annual: C.price || 100, perDay: "" } };
+var REFERRAL_PCT = 50;
+var state = {
+  plan: PLANS[_params.get("plan")] ? _params.get("plan") : (PLANS.Pro ? "Pro" : Object.keys(PLANS)[0]),
+  annual: _params.get("billing") === "annual",
+  promo: null
+};
+
 if (_ref) {
   var banner = document.createElement("div");
   banner.className = "gate-hint";
   banner.style.cssText = "background:var(--emerald-soft);color:var(--emerald-dark);margin-bottom:22px;font-weight:600";
-  banner.innerHTML = "🎁 You were referred with code <strong>" + _ref.replace(/[<>]/g, "") + "</strong> — your first month is <strong>50% off</strong>.";
+  banner.innerHTML = "🎁 You were referred with code <strong>" + _ref.replace(/[<>&"]/g, "") + "</strong> — your first month is <strong>" + REFERRAL_PCT + "% off</strong>.";
   var head = document.querySelector(".section-head");
   head.parentNode.insertBefore(banner, head.nextSibling);
 }
+
+// Plan options
+var pick = document.getElementById("plan-pick");
+Object.keys(PLANS).forEach(function (name) {
+  var p = PLANS[name];
+  var label = document.createElement("label");
+  label.className = "plan-opt";
+  label.innerHTML = '<input type="radio" name="plan" value="' + name + '"' + (name === state.plan ? " checked" : "") + '>' +
+    '<span class="po"><b>' + name + '</b><span class="pp">$<span class="pp-v" data-plan="' + name + '"></span></span>' +
+    '<small>' + (p.perDay || "") + '</small></span>';
+  label.querySelector("input").addEventListener("change", function () { state.plan = name; render(); });
+  pick.appendChild(label);
+});
+
+// Billing toggle
+var bm = document.getElementById("bill-monthly"), ba = document.getElementById("bill-annual");
+function setBilling(annual) { state.annual = annual; render(); }
+bm.addEventListener("click", function () { setBilling(false); });
+ba.addEventListener("click", function () { setBilling(true); });
+
+// Promo codes
+var promoIn = document.getElementById("promo"), promoMsg = document.getElementById("promo-msg");
+function applyPromo(code, quiet) {
+  code = (code || "").trim();
+  if (!code) { state.promo = null; promoMsg.textContent = ""; promoMsg.className = "promo-msg"; render(); return; }
+  var found = window.Promo && window.Promo.lookup(code);
+  if (found) {
+    state.promo = found;
+    promoMsg.textContent = "✓ " + found.code + " applied: " + found.label + ".";
+    promoMsg.className = "promo-msg ok";
+    promoIn.value = found.code;
+    if (!quiet) window.toast("Promo applied — " + found.label);
+  } else {
+    state.promo = null;
+    promoMsg.textContent = "That code isn't valid. Try LAUNCH50.";
+    promoMsg.className = "promo-msg bad";
+  }
+  render();
+}
+document.getElementById("promo-apply").addEventListener("click", function () { applyPromo(promoIn.value); });
+promoIn.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); applyPromo(promoIn.value); } });
+
+function money(n) { return n % 1 ? n.toFixed(2) : String(n); }
+function quote() {
+  var p = PLANS[state.plan];
+  var monthly = state.annual ? p.annual : p.monthly;
+  var base = state.annual ? monthly * 12 : monthly;     // charged today
+  // Best single first-month discount wins (promo vs referral) — they don't stack.
+  var pct = Math.max(state.promo ? state.promo.pct : 0, _ref ? REFERRAL_PCT : 0);
+  var source = state.promo && state.promo.pct >= (_ref ? REFERRAL_PCT : 0) ? state.promo.code : (_ref ? "Referral" : "");
+  var discount = Math.round(monthly * pct) / 100;        // % off one month
+  return { monthly: monthly, base: base, pct: pct, source: source, discount: discount, due: Math.round((base - discount) * 100) / 100 };
+}
+
+function render() {
+  bm.classList.toggle("active", !state.annual); ba.classList.toggle("active", state.annual);
+  bm.setAttribute("aria-pressed", String(!state.annual)); ba.setAttribute("aria-pressed", String(state.annual));
+  document.querySelectorAll(".pp-v").forEach(function (el) {
+    var p = PLANS[el.dataset.plan];
+    el.textContent = state.annual ? p.annual : p.monthly;
+    el.parentNode.nextElementSibling.textContent = (state.annual ? "/mo billed yearly · " : "/mo · ") + (p.perDay || "");
+  });
+  var q = quote();
+  var rows = '<div class="ol"><span>' + state.plan + ' plan · ' + (state.annual ? "annual ($" + q.monthly + "/mo × 12)" : "monthly") + '</span><span>$' + money(q.base) + '</span></div>';
+  if (q.pct) rows += '<div class="ol disc"><span>' + q.source + ' · ' + q.pct + '% off first month</span><span>−$' + money(q.discount) + '</span></div>';
+  rows += '<div class="ol tot"><span>Due today</span><span>$' + money(q.due) + '</span></div>';
+  if (!state.annual) rows += '<div class="ol"><span>Then</span><span>$' + q.monthly + '/mo</span></div>';
+  document.getElementById("order-sum").innerHTML = rows;
+  document.getElementById("due-now").textContent = money(q.due);
+}
+
+if (_params.get("promo")) applyPromo(_params.get("promo"), true);
+render();
 
 document.getElementById("signup-form").addEventListener("submit", function (e) {
   e.preventDefault();
   var f = e.target;
   if (!f.name.value.trim() || !f.email.value.trim()) { window.toast("Name and email are required"); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim())) { window.toast("Enter a valid email address"); f.email.focus(); return; }
+  // A code typed but never "Applied" still counts.
+  if (promoIn.value.trim() && (!state.promo || state.promo.code !== promoIn.value.trim().toUpperCase())) applyPromo(promoIn.value, true);
+  var q = quote();
   var roles = Array.prototype.slice.call(f.roles.selectedOptions).map(function (o) { return o.value; });
   var skills = f.skills.value.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
   var client = window.Store.addClient({
@@ -124,15 +238,20 @@ document.getElementById("signup-form").addEventListener("submit", function (e) {
     optExpiry: f.optExpiry.value,
     targetRoles: roles.length ? roles : ["Software Engineer"],
     skills: skills.length ? skills : ["Python", "SQL"],
-    plan: _params.get("plan") || "OfferPilot Monthly",
+    plan: state.plan,
+    billing: state.annual ? "annual" : "monthly",
+    promoCode: state.promo ? state.promo.code : null,
+    firstPayment: q.due,
     ref: _ref || null
   });
   window.Store.setSession({ role: "client", clientId: client.id });
+  // Also save the signup online when Supabase is configured (no-op otherwise).
+  if (window.Cloud) window.Cloud.saveSignup(client);
 
   // If Stripe is configured (live mode), hand off to checkout. Otherwise
   // (demo mode) continue straight to the dashboard.
   var handedOff = window.Integrations && window.Integrations.checkout({
-    plan: _params.get("plan") || "Pro",
+    plan: state.plan,
     email: client.email,
     ref: client.referralCode
   });

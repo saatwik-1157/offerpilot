@@ -11,8 +11,11 @@ window.OFFERPILOT_CONFIG = {
   tagline: "We apply. You interview.",
   year: 2026,
 
+  // Contact — shown in the footer, contact section and help chat.
+  // REPLACE these placeholders with your real details (.example / 555 don't work).
   email: "hello@offerpilot.example",
   phone: "+1 (555) 010-2025",
+  contactHours: "Mon–Fri, 9am–6pm ET",
 
   // Pricing
   price: 100,
@@ -20,6 +23,23 @@ window.OFFERPILOT_CONFIG = {
   appsPerDayMin: 25,
   appsPerDayMax: 35,
   appsPerMonth: 1000,
+
+  // Plans — the pricing table, signup checkout and dashboard all read these.
+  // annual = per-month price when billed yearly (2 months free).
+  plans: {
+    Starter: { monthly: 100, annual: 83, perDay: "15 applications / day" },
+    Pro:     { monthly: 150, annual: 125, perDay: "25–35 applications / day" },
+    Elite:   { monthly: 200, annual: 167, perDay: "Priority queue + mock interviews" }
+  },
+
+  // Promo codes (demo — validated in the browser). pct = % off the first month.
+  // The site-wide announcement bar advertises `featuredPromo`.
+  promoCodes: {
+    LAUNCH50: { pct: 50, label: "50% off your first month" },
+    OPTFAST:  { pct: 25, label: "25% off your first month" },
+    STEM20:   { pct: 20, label: "20% off your first month" }
+  },
+  featuredPromo: "LAUNCH50",
 
   // Demo access (client dashboard + admin). In live mode use real auth.
   demoClientEmail: "aarav@student.example",
