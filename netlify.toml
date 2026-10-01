@@ -1,5 +1,10 @@
+# Static site lives in apps/web. Netlify serves it as-is (no build step).
+# Note: the RezForge function (apps/api/functions/rezforge.js) uses the
+# Vercel/Node (req, res) signature, which Netlify Functions do not support.
+# For live AI on Netlify, run apps/api/server/rezforge-server.mjs elsewhere and
+# point rezforgeEndpoint in apps/web/js/config.js at it. See README.
 [build]
-  publish = "."
+  publish = "apps/web"
 
 [[redirects]]
   from = "/*"

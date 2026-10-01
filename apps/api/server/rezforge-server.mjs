@@ -6,11 +6,10 @@
    server-side — never in the browser.
 
    Run:
-     cd server
-     npm install
-     ANTHROPIC_API_KEY=sk-ant-... node rezforge-server.mjs
+     npm install                                  # from the repo root
+     ANTHROPIC_API_KEY=sk-ant-... npm run api
      # then set  rezforgeEndpoint: "http://localhost:8787/api/rezforge"
-     # in ../js/config.js and reload the dashboard.
+     # in apps/web/js/config.js and reload the dashboard.
 
    POST /api/rezforge
      body: { profile: {name, skills[], targetRoles[], visa}, job: {company, role} }

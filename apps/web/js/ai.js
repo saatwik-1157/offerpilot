@@ -188,7 +188,8 @@
   }
 
   /* ---------- Live resume tailoring (real Claude via proxy) ----------
-     Calls the RezForge server (server/rezforge-server.mjs) when
+     Calls the RezForge server (apps/api/server/rezforge-server.mjs,
+     or the /api/rezforge serverless function) when
      config.rezforgeEndpoint is set; otherwise returns the deterministic
      mock. Always resolves — falls back to the mock on any error so the
      dashboard never breaks. */
