@@ -14,7 +14,7 @@ window.OFFERPILOT_CONFIG = {
   // Contact — shown in the footer, contact section and help chat.
   email: "saathwik.13@gmail.com",
   phone: "+91 9989057655",
-  contactHours: "Mon–Fri, 9am–6pm ET",
+  contactHours: "Mon–Fri, 9am–6pm IST",
 
   // Pricing
   price: 100,
