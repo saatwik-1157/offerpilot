@@ -82,7 +82,9 @@
             '<a href="index.html#faq">FAQ</a>' +
             '<a href="signup.html">Get started</a>' +
             '<a href="admin.html">Team login</a>' +
-            '<a href="mailto:' + (C.email || "hello@offerpilot.example") + '">Contact</a>' +
+            '<a href="index.html#contact">Contact</a>' +
+            '<a href="mailto:' + (C.email || "hello@offerpilot.example") + '">' + (C.email || "hello@offerpilot.example") + '</a>' +
+            (C.phone ? '<a href="tel:' + C.phone.replace(/[^\d+]/g, "") + '">' + C.phone + '</a>' : "") +
           '</div>' +
           '<div class="col"><h2>Legal</h2>' +
             '<a href="legal.html#refund">Refund policy</a>' +
@@ -170,5 +172,14 @@
     // Fill any [data-brand] / [data-price] placeholders
     document.querySelectorAll("[data-price]").forEach(function (e) { e.textContent = C.price; });
     document.querySelectorAll("[data-brand]").forEach(function (e) { e.textContent = C.brand; });
+    // Contact placeholders: [data-email] / [data-phone] become live links.
+    document.querySelectorAll("[data-email]").forEach(function (e) {
+      e.textContent = C.email; if (e.tagName === "A") e.href = "mailto:" + C.email;
+    });
+    document.querySelectorAll("[data-email-link]").forEach(function (e) { e.href = "mailto:" + C.email; });
+    document.querySelectorAll("[data-phone-link]").forEach(function (e) { e.href = "tel:" + String(C.phone).replace(/[^\d+]/g, ""); });
+    document.querySelectorAll("[data-phone]").forEach(function (e) {
+      e.textContent = C.phone; if (e.tagName === "A") e.href = "tel:" + String(C.phone).replace(/[^\d+]/g, "");
+    });
   });
 })();
